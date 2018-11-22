@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sample Site</title>
+
+    <link
+      rel="stylesheet"
+      href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/assets/style.css" type="text/css" />
+    <style>
+      body {
+        padding-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Get your favourite fashion items with a discount!</h1>
+      <h2>Input the URL of the item you like and check out the discounts!</h2>
+
+      <form method="POST" action="/addUrl">
+        <input
+          type="url"
+          name="url"
+          id="url"
+          placeholder="https://example.com"
+          size="100"
+          list="defaultURLs"
+          pattern="https://.*"
+        />
+        <datalist id="defaultURLs">
+          <option value="https://developer.mozilla.org/"> </option>
+          <option value="http://www.google.com/"> </option>
+          <option value="http://www.microsoft.com/"> </option>
+          <option value="https://www.mozilla.org/"> </option>
+          <option value="http://w3.org/"> </option>
+        </datalist>
+
+        <input type="submit" value="OK" />
+      </form>
+    </div>
+  </body>
+</html>
