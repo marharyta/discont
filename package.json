@@ -1,0 +1,13 @@
+{
+  "name": "discont",
+  "version": "1.0.0",
+  "description": "Find when the item is on sale",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "express": "^4.16.4"
+  },
+  "dependencies": {
+    "ejs": "^2.6.1"
+  }
+}
