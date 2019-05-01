@@ -1,24 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <title>Sample Site</title>
-
-    <link
-      rel="stylesheet"
-      href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"
-    />
-    <link rel="stylesheet" href="/assets/style.css" type="text/css" />
-    <style>
-      body {
-        padding-top: 50px;
-      }
-    </style>
+      <% include ./partials/head %>
   </head>
   <body>
+    
     <div class="container">
+        <div class="row">
+            <% if(productExists) { %>
+            <div class="col-sm-12">
+              Product exists already
+            </div>
+            <% } %>
+        </div>
+        <div>
+          <% if(productLoading) { %>
+            <p class="danger">
+              product loading
+            </p>
+            <% } %>
+        </div>
       <h1>Get your favourite fashion items with a discount!</h1>
       <h2>Input the URL of the item you like and check out the discounts!</h2>
+
+      <a href='/login'>Log In</a>
+      <a href='/logout'>Log out</a>
+      <a href='/signup'>Sign Up</a>
+
+      
 
       <form method="POST" action="/addUrl">
         <input
@@ -27,19 +36,58 @@
           id="url"
           placeholder="https://example.com"
           size="100"
-          list="defaultURLs"
           pattern="https://.*"
+          class="form-control"
         />
-        <datalist id="defaultURLs">
-          <option value="https://developer.mozilla.org/"> </option>
-          <option value="http://www.google.com/"> </option>
-          <option value="http://www.microsoft.com/"> </option>
-          <option value="https://www.mozilla.org/"> </option>
-          <option value="http://w3.org/"> </option>
-        </datalist>
 
-        <input type="submit" value="OK" />
+        <input type="submit" value="OK" id="sumit" class="btn btn-default"/>
       </form>
+
+      
+
+      <div class="row">
+        <% saleItems.forEach(function(item) { %>
+        <div class="col-sm-4">
+          <a href=<%= "/dashboard/" + item.productId %> class=<%= item.calculatedDiscount > 0 ? "text-danger" :"text-info" %> target="_blank">
+            <img src=<%= item.images[0] %> class=<%= item.calculatedDiscount > 0 ? "danger" : " " %> /> 
+            <h5> <%= item.productTitle %> </h5>
+            <h5> <%= item.calculatedDiscount %> </h5>
+          </a>
+          <a href=<%= item.productURL %> class=<%= item.calculatedDiscount > 0 ? "text-danger" :"text-info" %> target="_blank">
+            link
+          </a>
+        </div>
+        
+    
+        <% }); %>
+
+        <!-- <% saleItems %>
+          <script>
+            localStorage.setItem('items', "<%= JSON.stringify(saleItems) %>");
+            var test = "<%= JSON.stringify(saleItems) %>";
+          </script> 
+         <%  %> -->
+      </div>
     </div>
+
+    <footer>
+        <% include ./partials/footer %>
+    </footer>
+    <script>
+      console.log('test');
+      var evtSource = new EventSource('http://localhost:5000');
+      console.log('test 2', evtSource);
+      // evtSource.onmessage = function(e) {
+      //   console.log('event', e);
+      // }
+      evtSource.onopen = function(e) {
+        console.log('event open', e);
+        evtSource.onmessage = function(e) {
+          console.log('event message', e);
+        }
+      }
+
+     
+    </script>
   </body>
 </html>
