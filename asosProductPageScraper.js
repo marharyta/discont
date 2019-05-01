@@ -84,12 +84,6 @@ async function scrapeAsosProductPage(url, username) {
 
   await browser.close();
 
-  console.log(
-    "price",
-    parseInt(previousPrice.text) - parseInt(price.text),
-    discount
-  );
-
   return {
     productId: productId,
     images: imageArray,
