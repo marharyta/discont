@@ -1,17 +1,12 @@
 const express = require("express");
-var http = require("http");
 const app = express();
-var path = require("path");
-var bodyParser = require("body-parser");
-var fs = require("fs");
+const bodyParser = require("body-parser");
 const axios = require("axios");
 const url = require("url");
-const uuid = require("uuid/v4");
-const scrapeZalandoProductPage = require("./zalandoProductPageScraper");
 const dbManager = require("./mongoDBManager");
-var morgan = require("morgan");
-var cookieParser = require("cookie-parser");
-var session = require("client-sessions");
+const asosDBManager = require("./asosMongoDBManager");
+const morgan = require("morgan");
+const session = require("client-sessions");
 
 // var admin = require("firebase-admin");
 // var serviceAccount = require("./discont-7ce3a-firebase-adminsdk-qcevs-2bfadd8a3f.json");
@@ -175,7 +170,7 @@ app.get("/dashboard", checkSignIn, function(req, res) {
   console.log("req.session.userName", req.session);
 
   async function getItems(user) {
-    saleItems = await dbManager.getAllItems(user);
+    saleItems = await asosDBManager.getAllAsosItems(user);
     res.render("index", {
       saleItems: saleItems.reverse(),
       productExists: req.query.productExists ? true : false,
@@ -192,7 +187,7 @@ app.get("/dashboard", checkSignIn, function(req, res) {
 
 app.get("/dashboard/:itemId", function(req, res) {
   async function getSingleItem(item) {
-    saleItems = await dbManager.getAnItem(item);
+    saleItems = await asosDBManager.getAsosItem(item);
     res.render("sale", {
       saleItems: saleItems,
       productExists: req.query.productExists ? true : false
@@ -244,7 +239,9 @@ async function checkAsosItemInDB(url, callback1, callback2) {
     return null;
   }
 
-  await dbManager.chechProductInDB({ productId: productId }, function(data) {
+  await asosDBManager.checkAsosProductInDB({ productId: productId }, function(
+    data
+  ) {
     if (data !== null && data !== undefined) {
       // console.log("it exists woooohoo", data);
       // return data;
@@ -271,7 +268,7 @@ app.post("/addUrl", async function(req, res) {
     const itemChecked = await checkAsosItemInDB(
       url1.href,
       data => {
-        dbManager.updateProductInDB(data, req.session.user);
+        asosDBManager.updateAsosProductInDB(data, req.session.user);
         res.redirect(`/dashboard/${data.productId}?productExists=true`);
       },
       () => {

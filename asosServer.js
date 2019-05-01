@@ -12,7 +12,7 @@ app.use(express.json());
 app.post("/addUrl", function(req, res) {
   scrapeAsosProductPage(req.body.url.href, req.body.name)
     .then(data => {
-      dbManager.addProductToDB(data, () => res.end("product added"));
+      dbManager.addAsosProductToDB(data, () => res.end("product added"));
     })
     .catch(e => {
       console.log("error getting or saving the data", e);
