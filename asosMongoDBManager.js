@@ -145,11 +145,11 @@ async function deleteAsosItem(productId) {
   });
 }
 
-const dbManager = {
+const asosDBManager = {
   checkAsosProductInDB: checkAsosProductInDB,
   addAsosProductToDB: addAsosProductToDB,
   updateAsosProductInDB: updateAsosProductInDB,
   getAllAsosItems: getAllAsosItems,
   getAsosItem: getAsosItem
 };
-module.exports = dbManager;
+module.exports = asosDBManager;

@@ -72,22 +72,8 @@
 
     <footer>
         <% include ./partials/footer %>
+        <% include ./partials/script %>
     </footer>
-    <script>
-      console.log('test');
-      var evtSource = new EventSource('http://localhost:5000');
-      console.log('test 2', evtSource);
-      // evtSource.onmessage = function(e) {
-      //   console.log('event', e);
-      // }
-      evtSource.onopen = function(e) {
-        console.log('event open', e);
-        evtSource.onmessage = function(e) {
-          console.log('event message', e);
-        }
-      }
-
-     
-    </script>
+    
   </body>
 </html>
