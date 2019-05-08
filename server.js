@@ -10,8 +10,6 @@ const session = require("client-sessions");
 
 const port = process.env.PORT || 1337;
 
-let saleItems = [];
-
 app.use("/assets", express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -96,9 +94,10 @@ app.post("/login", function(req, res) {
 
 app.get("/dashboard", checkSignIn, function(req, res) {
   async function getItems(user) {
+    let saleItems = [];
     saleItems = await asosDBManager.getAllAsosItems(user);
     res.render("index", {
-      saleItems: saleItems.reverse(),
+      saleItems: saleItems,
       productExists: req.query.productExists ? true : false,
       productLoading: req.query.productLoading ? true : false
     });
@@ -113,6 +112,7 @@ app.get("/dashboard", checkSignIn, function(req, res) {
 
 app.get("/dashboard/:itemId", function(req, res) {
   async function getSingleItem(item) {
+    let saleItems = [];
     saleItems = await asosDBManager.getAsosItem(item);
     res.render("sale", {
       saleItems: saleItems,
