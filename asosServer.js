@@ -3,7 +3,7 @@ const app = express();
 
 const scrapeAsosProductPage = require("./asosProductPageScraper");
 const asosDBManager = require("./asosMongoDBManager");
-const dbManager = require("./mongoDBManager");
+const dbManager = require("./loginMongoDBManager");
 
 const port = process.env.PORT || 1555;
 
