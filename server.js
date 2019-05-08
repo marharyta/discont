@@ -3,26 +3,13 @@ const app = express();
 const bodyParser = require("body-parser");
 const axios = require("axios");
 const url = require("url");
-// const dbManager = require("./mongoDBManager");
-// const asosDBManager = require("./asosMongoDBManager");
 const morgan = require("morgan");
 const session = require("client-sessions");
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const puppeteer = require("puppeteer");
 const cheerio = require("cheerio");
 
 require("dotenv").config();
-// var admin = require("firebase-admin");
-// var serviceAccount = require("./discont-7ce3a-firebase-adminsdk-qcevs-2bfadd8a3f.json");
-// // discont-7ce3a-firebase-adminsdk-qcevs-2bfadd8a3f.json
-
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount),
-//   databaseURL: "https://discont-7ce3a.firebaseio.com"
-// });
-
-// var passport = require("passport"),
-//   LocalStrategy = require("passport-local").Strategy;
 
 // https://www.airpair.com/node.js/posts/top-10-mistakes-node-developers-make
 
@@ -57,8 +44,6 @@ function loginPerson(login, password) {
     console.log("connection opened");
   });
 
-  // console.log("login", login, password);
-
   return new Promise(function(resolve, reject) {
     AppUsers.findOne({ login: login, password: password })
       .then(data => {
@@ -87,18 +72,6 @@ function signUpPerson(login, password) {
   });
 
   return new Promise(function(resolve, reject) {
-    // AppUsers.findOne({ login: login, password: password })
-    //   .then(data => {
-    //     console.log("we logged in!");
-
-    //     mongoose.disconnect().then(d => {
-    //       console.log("conection closed ");
-    //     });
-    //     resolve();
-    //   })
-    //   .catch(e => {
-    //     reject();
-    //   });
     const user = AppUsers({ login: login, password: password });
     user.save(function(err) {
       if (err) {
@@ -114,12 +87,11 @@ function signUpPerson(login, password) {
     });
   });
 }
+
 const dbManager = {
   loginPerson: loginPerson,
   signUpPerson: signUpPerson
 };
-
-// const Schema = mongoose.Schema;
 
 const productOnAsos = new Schema({
   productId: String,
@@ -157,7 +129,7 @@ function checkAsosProductInDB(productData, callback) {
   });
 }
 
-function addAsosProductToDB(productData, callback) {
+function addAsosProductToDB(productData, username, callback) {
   console.log("addProductToDB start");
   mongoose.connect(process.env.moongoDBLink).then(d => {
     console.log("connection opened");
@@ -168,6 +140,7 @@ function addAsosProductToDB(productData, callback) {
     if (r == undefined || r == null) {
       console.log("we need to add products");
       // put that data into DB
+      productData.users.push(username);
       const product = AsosProducts(productData);
       product.save(function(err) {
         if (err) {
@@ -195,7 +168,7 @@ function updateAsosProductInDB(productData, username, callback) {
   });
 
   AsosProducts.findOne({ productId: productData.productId }).then(r => {
-    console.log("rule the world", r.users);
+    // console.log("rule the world", r.users);
     if (!r.users.includes(username)) {
       r.users.push(username);
       r.save(function(err) {
@@ -272,11 +245,11 @@ const asosDBManager = {
 };
 
 async function scrapeAsosProductPage(url, username) {
+  console.log("url to debug", url);
   const extractProductId = /(?:\/prd\/)\d{3,50}(?=\?)/g;
   const extractProductIdNumber = /\d{3,50}/g;
 
   const productIdArray = extractProductId.exec(url);
-  console.log("productIdArray", productIdArray);
   const productId = extractProductIdNumber.exec(productIdArray[0])[0];
 
   if (!Number.isInteger(parseInt(productId))) {
@@ -294,7 +267,6 @@ async function scrapeAsosProductPage(url, username) {
       `https://www.asos.com/api/product/catalogue/v2/stockprice?productIds=${productId}&currency=EUR&store=ROE`
     )
     .then(response => {
-      // console.log("JSON.parse(response)", response.data[0]);
       const itemInfo = response.data[0];
       price = itemInfo.productPrice.current;
       previousPrice = itemInfo.productPrice.previous;
@@ -380,29 +352,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(morgan("dev"));
 
-// add & configure middleware
-// app.use(
-//   session({
-//     key: "user_sid",
-//     secret: "somerandonstuffs",
-//     resave: true,
-//     saveUninitialized: false,
-//     cookie: {
-//       expires: 600000
-//     }
-//   })
-// );
-
-// // Route not found (404)
-// app.use(function(req, res, next) {
-//   return res.status(404).send({ message: "Route" + req.url + " Not found." });
-// });
-
-// // Any error
-// app.use(function(err, req, res, next) {
-//   return res.status(500).send({ error: err });
-// });
-
 app.use(
   session({
     cookieName: "session",
@@ -412,27 +361,9 @@ app.use(
   })
 );
 
-// app.use((req, res, next) => {
-//   // console.log("session checker", req.session);
-//   // if (req.session.user && req.cookies.user_sid) {
-//   //   res.redirect("/dashboard");
-//   // } else {
-//   //   next();
-//   // }
-//   // if (req.session.user) {
-//   //   console.log(req.session.user);
-//   //   next();
-//   // } else {
-//   //   // res.redirect("/login");
-//   // }
-//   next();
-// });
-
 // middleware function to check for logged-in users
 var sessionChecker = (req, res, next) => {
-  // console.log("session checker", req.session.user, req.cookies.user_sid);
   if (req.session.user) {
-    console.log(req.session.user);
     res.redirect("/dashboard");
   } else {
     next();
@@ -452,7 +383,6 @@ function checkSignIn(req, res, next) {
 
 // route for Home-Page
 app.get("/", (req, res) => {
-  // console.log("req.session", req.session);
   res.redirect("/login");
 });
 
@@ -486,7 +416,6 @@ app.get("/logout", function(req, res) {
 app.post("/login", function(req, res) {
   var username = req.body.login,
     password = req.body.password;
-  // const info = url.parse(req.body.url);
   dbManager
     .loginPerson(username, password)
     .then(d => {
@@ -499,13 +428,9 @@ app.post("/login", function(req, res) {
     .catch(e => {
       res.end("Invalid credentials");
     });
-  // console.log("login req", req.body);
 });
 
 app.get("/dashboard", checkSignIn, function(req, res) {
-  console.log("we are in dashboard");
-  console.log("req.session.userName", req.session);
-
   async function getItems(user) {
     saleItems = await asosDBManager.getAllAsosItems(user);
     res.render("index", {
@@ -554,7 +479,6 @@ function detectOnlineStore(url) {
 
   // throw error if cannot find any website
   if (!isAsos && !isZalando && !isNastygal) {
-    // res.end("Cannot find website ");
     return "not found";
   } else if (isAsos) {
     return "asos";
@@ -581,8 +505,6 @@ async function checkAsosItemInDB(url, callback1, callback2) {
     data
   ) {
     if (data !== null && data !== undefined) {
-      // console.log("it exists woooohoo", data);
-      // return data;
       callback1(data);
     } else {
       console.log("it does not exist");
@@ -590,11 +512,6 @@ async function checkAsosItemInDB(url, callback1, callback2) {
       return null;
     }
   });
-
-  // if (productData !== undefined && productData !== null) {
-  //   //console.log("productData !== undefined", productData !== undefined);
-  //   return productData;
-  // }
 }
 
 app.post("/addUrl", async function(req, res) {
@@ -610,7 +527,16 @@ app.post("/addUrl", async function(req, res) {
         res.redirect(`/dashboard/${data.productId}?productExists=true`);
       },
       () => {
-        makeRequest();
+        scrapeAsosProductPage(url1.href, req.body.name)
+          .then(data => {
+            console.log("we got here");
+            asosDBManager.addAsosProductToDB(data, req.session.user, () => {
+              return res.redirect("/dashboard");
+            });
+          })
+          .catch(e => {
+            console.log("error getting or saving the data", e);
+          });
       }
     );
   } else if (storePrint === "zalando") {
@@ -624,7 +550,6 @@ app.post("/addUrl", async function(req, res) {
   function makeRequest() {
     // console.log("now we know req.session.user", req.session.user);
     // res.redirect("/dashboard?productLoading=true");
-
     // axios
     //   .post("http://localhost:1555/addUrl", {
     //     url: url1,
@@ -637,19 +562,6 @@ app.post("/addUrl", async function(req, res) {
     //   .catch(e => {
     //     console.log("error ", e);
     //   });
-
-    scrapeAsosProductPage(req.body.url.href, req.body.name)
-      .then(data => {
-        console.log("we got here");
-        dbManager.addAsosProductToDB(data, () => res.end("product added"));
-      })
-      .then(function(response) {
-        // console.log("do we have it already?", response.data);
-        res.redirect("/dashboard?productLoading=false");
-      })
-      .catch(e => {
-        console.log("error getting or saving the data", e);
-      });
   }
 });
 
