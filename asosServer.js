@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 
 const scrapeAsosProductPage = require("./asosProductPageScraper");
+const asosDBManager = require("./asosMongoDBManager");
 const dbManager = require("./mongoDBManager");
 
 const port = process.env.PORT || 1555;
@@ -12,7 +13,7 @@ app.use(express.json());
 app.post("/addUrl", function(req, res) {
   scrapeAsosProductPage(req.body.url.href, req.body.name)
     .then(data => {
-      dbManager.addAsosProductToDB(data, () => res.end("product added"));
+      asosDBManager.addAsosProductToDB(data, () => res.end("product added"));
     })
     .catch(e => {
       console.log("error getting or saving the data", e);
