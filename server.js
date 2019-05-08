@@ -30,7 +30,6 @@ app.use(
 // middleware function to check for logged-in users
 var sessionChecker = (req, res, next) => {
   if (req.session.user) {
-    console.log(req.session.user);
     res.redirect("/dashboard");
   } else {
     next();
@@ -38,7 +37,6 @@ var sessionChecker = (req, res, next) => {
 };
 
 function checkSignIn(req, res, next) {
-  console.log("req.session.user", req.session.user);
   if (req.session.user) {
     next(); //If session exists, proceed to page
   } else {
@@ -97,9 +95,6 @@ app.post("/login", function(req, res) {
 });
 
 app.get("/dashboard", checkSignIn, function(req, res) {
-  console.log("we are in dashboard");
-  console.log("req.session.userName", req.session);
-
   async function getItems(user) {
     saleItems = await asosDBManager.getAllAsosItems(user);
     res.render("index", {

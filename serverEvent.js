@@ -8,39 +8,6 @@ const dbManager = require("./mongoDBManager");
 const asosDBManager = require("./asosMongoDBManager");
 const nodemailer = require("nodemailer");
 
-// check Asos products for discount
-// this module is super buggy and unreliable
-
-// https://www.codementor.io/joshuaaroke/sending-html-message-in-nodejs-express-9i3d3uhjr
-// https://nodemailer.com/message/
-// https://burnermail.io/
-
-// async function mail() {
-//   let account = await nodemailer.createTestAccount();
-
-//   let transporter = nodemailer.createTransport({
-//     host: "burner.977494f5@tryninja.io",
-//     port: 587,
-//     secure: false, // true for 465, false for other ports
-//     auth: {
-//       user: account.user, // generated ethereal user
-//       pass: account.pass // generated ethereal password
-//     }
-//   });
-
-//   // setup email data with unicode symbols
-//   let mailOptions = {
-//     from: '"Fred Foo 👻" <foo@example.com>', // sender address
-//     to: "margarita.obraztsova@futurice.com", // list of receivers
-//     subject: "Hello ✔", // Subject line
-//     text: "Hello world?", // plain text body
-//     html: "<b>Hello world?</b>" // html body
-//   };
-
-//   // send mail with defined transport object
-//   let info = await transporter.sendMail(mailOptions);
-// }
-
 function checkAsosProduct(dataURL) {
   return scrapeAsosProductPage(dataURL)
     .then(data => {
