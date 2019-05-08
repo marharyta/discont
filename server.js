@@ -61,11 +61,6 @@ app.use(morgan("dev"));
 //   return res.status(404).send({ message: "Route" + req.url + " Not found." });
 // });
 
-// // Any error
-// app.use(function(err, req, res, next) {
-//   return res.status(500).send({ error: err });
-// });
-
 app.use(
   session({
     cookieName: "session",
@@ -319,6 +314,12 @@ app.post("/addUrl", async function(req, res) {
 
 app.get("*", function(req, res) {
   res.render("404");
+});
+
+// Any error
+app.use(function(err, req, res, next) {
+  // return res.status(500).send({ error: err });
+  return res.render("error");
 });
 
 app.listen(port, "127.0.0.1");
