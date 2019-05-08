@@ -4,7 +4,7 @@ const express = require("express");
 const app = express();
 
 const scrapeAsosProductPage = require("./asosProductPageScraper");
-const dbManager = require("./mongoDBManager");
+const dbManager = require("./loginMongoDBManager");
 const asosDBManager = require("./asosMongoDBManager");
 const nodemailer = require("nodemailer");
 
