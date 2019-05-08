@@ -7,6 +7,7 @@ const dbManager = require("./loginMongoDBManager");
 const asosDBManager = require("./asosMongoDBManager");
 const morgan = require("morgan");
 const session = require("client-sessions");
+const detectOnlineStore = require("./utils");
 
 const port = process.env.PORT || 1337;
 
@@ -127,28 +128,6 @@ app.get("/dashboard/:itemId", function(req, res) {
     res.redirect("/login");
   }
 });
-
-function detectOnlineStore(url) {
-  // regex for store domains
-  const asosRegex = /asos/g;
-  const zalandoRegex = /zalando/g;
-  const nastygalRegex = /nastygal(?=\.com)/g;
-  const stockmannRegex = /zalando/g;
-
-  // check if link is from any supported website
-  const isAsos = asosRegex.test(url);
-  const isZalando = zalandoRegex.test(url);
-  const isNastygal = nastygalRegex.test(url);
-
-  // throw error if cannot find any website
-  if (!isAsos && !isZalando && !isNastygal) {
-    return "not found";
-  } else if (isAsos) {
-    return "asos";
-  } else if (isZalando) {
-    return "zalando";
-  }
-}
 
 async function checkAsosItemInDB(url, callback1, callback2) {
   console.log("checkItem");
