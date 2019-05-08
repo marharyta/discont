@@ -1,8 +1,6 @@
 var mongoose = require("mongoose");
 require("dotenv").config();
 
-// process.env.moongoDBLink
-
 // Define schema for product
 const Schema = mongoose.Schema;
 
@@ -18,8 +16,6 @@ function loginPerson(login, password) {
   mongoose.connect(process.env.moongoDBLink).then(d => {
     console.log("connection opened");
   });
-
-  // console.log("login", login, password);
 
   return new Promise(function(resolve, reject) {
     AppUsers.findOne({ login: login, password: password })
@@ -49,18 +45,6 @@ function signUpPerson(login, password) {
   });
 
   return new Promise(function(resolve, reject) {
-    // AppUsers.findOne({ login: login, password: password })
-    //   .then(data => {
-    //     console.log("we logged in!");
-
-    //     mongoose.disconnect().then(d => {
-    //       console.log("conection closed ");
-    //     });
-    //     resolve();
-    //   })
-    //   .catch(e => {
-    //     reject();
-    //   });
     const user = AppUsers({ login: login, password: password });
     user.save(function(err) {
       if (err) {
