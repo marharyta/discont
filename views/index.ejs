@@ -27,8 +27,6 @@
       <a href='/logout'>Log out</a>
       <a href='/signup'>Sign Up</a>
 
-      
-
       <form method="POST" action="/addUrl">
         <input
           type="url"
@@ -43,8 +41,6 @@
         <input type="submit" value="OK" id="sumit" class="btn btn-default"/>
       </form>
 
-      
-
       <div class="row">
         <% saleItems.forEach(function(item) { %>
         <div class="col-sm-4">
@@ -56,6 +52,7 @@
           <a href=<%= item.productURL %> class=<%= item.calculatedDiscount > 0 ? "text-danger" :"text-info" %> target="_blank">
             link
           </a>
+         
         </div>
         
     
