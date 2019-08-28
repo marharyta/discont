@@ -1,14 +1,6 @@
-<<<<<<< HEAD
 # Discont
 ## Node.js based Web crawler for fashion online stores
-=======
-Info here: 
-https://medium.com/p/e6471942b43c/edit
 
-
-//
-https://benbernardblog.com/web-scraping-and-crawling-are-perfectly-legal-right/
->>>>>>> c48733f06818b8dee976d79d4e0ce74770a80151
 
 **N.B.:**  
 **Discont as an application was created by me a couple of years back in order to watch some discounts on the items online that I liked. 
@@ -36,3 +28,7 @@ Repository consists of several major branches
 
 Ideas:
 EJS templates: https://scotch.io/tutorials/use-ejs-to-template-your-node-application
+
+
+Info here: 
+https://medium.com/p/e6471942b43c/edit
