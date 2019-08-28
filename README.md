@@ -8,6 +8,21 @@ This service is not in use anymore and any update in this service will be made f
 **N.B. 2:**  
 **At the moment of creating this app I had no idea about [shoptagr.com](shoptagr.com) and how well they have implemented it! In case if you do want to watch some discounts you should opt for Shoptagr instead, since they do not use scraping but create an integration with shops.**
 
+##Architecture
+
+the project was started for two purposes: 
+- experimentation and exploring
+- getting discount info (ahahaha)
+  
+The exploration part: 
+I wanted to demonstrate the pattern of software development evolution from single file monolith system to single responsibility files and microservices and separation of front-end and back-end part to vertical decomposition.
+
+## The repository structure 
+Repository consists of several major branches
+- _monolith-app-sample_
+- _single-responsibility-files_
+
+
 [More inforation](https://benbernardblog.com/web-scraping-and-crawling-are-perfectly-legal-right/) about web crawling / web scraping / etc.
 
 Ideas:
