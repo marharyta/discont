@@ -131,18 +131,37 @@ async function getAsosItem(productId) {
   });
 }
 
-async function deleteAsosItem(productId) {
-  console.log("getAllItems");
+async function deleteAsosItem(productData, username, callback) {
+  console.log("we get to delete");
   mongoose.connect(process.env.moongoDBLink).then(d => {
     console.log("connection opened");
   });
 
-  return await AsosProducts.find({ productId: productId }).then(d => {
-    mongoose.disconnect().then(d => {
-      console.log("conection closed ");
-    });
-    return d;
-  });
+  return await AsosProducts.findOne({ productId: productData.productId }).then(
+    r => {
+      console.log("rule the world", r.users);
+      if (r.users.includes(username)) {
+        let elementNum = r.users.findIndex(item => item == username);
+        console.log("elementNum", elementNum);
+        // r.save(function(err) {
+        //   if (err) {
+        //     console.log("err", err);
+        //   }
+        //   console.log("product data saved");
+        // });
+      } else {
+        console.log("array already includes that username");
+        mongoose
+          .disconnect()
+          .then(d => {
+            console.log("conection closed ");
+          })
+          .catch(e => {
+            console.log("we got an error here", e);
+          });
+      }
+    }
+  );
 }
 
 const asosDBManager = {
@@ -150,6 +169,7 @@ const asosDBManager = {
   addAsosProductToDB: addAsosProductToDB,
   updateAsosProductInDB: updateAsosProductInDB,
   getAllAsosItems: getAllAsosItems,
-  getAsosItem: getAsosItem
+  getAsosItem: getAsosItem,
+  deleteAsosItem: deleteAsosItem
 };
 module.exports = asosDBManager;

@@ -99,6 +99,8 @@ app.get("/dashboard", checkSignIn, function(req, res) {
     saleItems = await asosDBManager.getAllAsosItems(user);
     res.render("index", {
       saleItems: saleItems,
+      user: req.session.user,
+      // deleteAsosItem: asosDBManager.deleteAsosItem,
       productExists: req.query.productExists ? true : false,
       productLoading: req.query.productLoading ? true : false
     });

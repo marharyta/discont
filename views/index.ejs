@@ -13,12 +13,12 @@
             </div>
             <% } %>
         </div>
-        <div>
-          <% if(productLoading) { %>
+        <div id="loader">
+         
             <p class="danger">
               product loading
             </p>
-            <% } %>
+            
         </div>
       <h1>Get your favourite fashion items with a discount!</h1>
       <h2>Input the URL of the item you like and check out the discounts!</h2>
@@ -29,7 +29,7 @@
 
       
 
-      <form method="POST" action="/addUrl">
+      <form method="POST" action="/addUrl" id="checkform">
         <input
           type="url"
           name="url"
@@ -56,6 +56,7 @@
           <a href=<%= item.productURL %> class=<%= item.calculatedDiscount > 0 ? "text-danger" :"text-info" %> target="_blank">
             link
           </a>
+          <!-- <button id="deleteItem" onclick=<%=  deleteAsosItem(item, user.username, ()=>console.log('me')).then(function(){console.log('hello')}).catch(e=> console.log('this is an error') %>> Delete <%= item.productId %> </button> -->
         </div>
         
     
@@ -74,6 +75,13 @@
         <% include ./partials/footer %>
         <% include ./partials/script %>
     </footer>
+    <script>
+      document.getElementById('checkform').addEventListener("submit", function(){
+        console.log('oho, something is changing!');
+        // trigger animation
+        document.getElementById('loader').style.display = "block";
+      })
+    </script>
     
   </body>
 </html>
