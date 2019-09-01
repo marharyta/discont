@@ -47,6 +47,33 @@ function checkSignIn(req, res, next) {
   }
 }
 
+async function checkAsosItemInDB(url, callback1, callback2) {
+  console.log("checkItem");
+  const extractProductId = /(?:\/prd\/)\d{3,50}(?=\?)/g;
+  const extractProductIdNumber = /\d{3,50}/g;
+
+  const productIdArray = extractProductId.exec(url);
+  const productId = extractProductIdNumber.exec(productIdArray[0])[0];
+
+  if (!Number.isInteger(parseInt(productId))) {
+    // catch an error
+    throw new Error("product ID not detected");
+    return null;
+  }
+
+  await asosDBManager.checkAsosProductInDB({ productId: productId }, function (
+    data
+  ) {
+    if (data !== null && data !== undefined) {
+      callback1(data);
+    } else {
+      console.log("it does not exist");
+      callback2();
+      return null;
+    }
+  });
+}
+
 // route for Home-Page
 app.get("/", (req, res) => {
   if (req.session.user) {
@@ -54,13 +81,30 @@ app.get("/", (req, res) => {
   } else {
     res.redirect("/login");
   }
-
 });
 
-app.get("/login", function (req, res) {
-  res.render("login");
-
-});
+app.route('/login')
+  .get(function (req, res) {
+    res.render("login", {
+      logoutStataus: false
+    });
+  })
+  .post(function (req, res) {
+    var username = req.body.login,
+      password = req.body.password;
+    dbManager
+      .loginPerson(username, password)
+      .then(d => {
+        console.log("ud", d);
+        req.session.userName = username;
+        req.session.user = true;
+        req.session.user = username;
+        res.redirect("/dashboard");
+      })
+      .catch(e => {
+        res.end("Invalid credentials");
+      });
+  });
 
 app
   .route("/signup")
@@ -81,27 +125,12 @@ app.get("/logout", function (req, res) {
   req.session.destroy(function () {
     console.log("user logged out.");
   });
-  res.render("login");
+  res.render("login", {
+    logoutStataus: true
+  });
 });
 
-app.post("/login", function (req, res) {
-  var username = req.body.login,
-    password = req.body.password;
-  dbManager
-    .loginPerson(username, password)
-    .then(d => {
-      console.log("ud", d);
-      req.session.userName = username;
-      req.session.user = true;
-      req.session.user = username;
-      res.redirect("/dashboard");
-    })
-    .catch(e => {
-      res.end("Invalid credentials");
-    });
-});
-
-app.get('/index', function (req, res, utils) {
+app.get('/index', function (req, res) {
   res.render("index", {
     saleItems: [],
     user: req.session.user,
@@ -148,33 +177,6 @@ app.get("/dashboard/:itemId", function (req, res) {
     res.redirect("/login");
   }
 });
-
-async function checkAsosItemInDB(url, callback1, callback2) {
-  console.log("checkItem");
-  const extractProductId = /(?:\/prd\/)\d{3,50}(?=\?)/g;
-  const extractProductIdNumber = /\d{3,50}/g;
-
-  const productIdArray = extractProductId.exec(url);
-  const productId = extractProductIdNumber.exec(productIdArray[0])[0];
-
-  if (!Number.isInteger(parseInt(productId))) {
-    // catch an error
-    throw new Error("product ID not detected");
-    return null;
-  }
-
-  await asosDBManager.checkAsosProductInDB({ productId: productId }, function (
-    data
-  ) {
-    if (data !== null && data !== undefined) {
-      callback1(data);
-    } else {
-      console.log("it does not exist");
-      callback2();
-      return null;
-    }
-  });
-}
 
 app.post("/addUrl", async function (req, res) {
   // get url from request
