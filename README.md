@@ -1,58 +1,26 @@
-//
-https://benbernardblog.com/web-scraping-and-crawling-are-perfectly-legal-right/
+Discont
+Node.js based Web crawler for fashion online stores
+N.B.:
+Discont as an application was created by me a couple of years back in order to watch some discounts on the items online that I liked. This service is not in use anymore and any update in this service will be made for solely educational purposes, you should read your customer agreement (part that mentions web scraping) before doing anything with it.
 
-EJS templates
-https://scotch.io/tutorials/use-ejs-to-template-your-node-application
-// https://stackoverflow.com/questions/4295782/how-to-process-post-data-in-node-js
-// https://www.airpair.com/node.js/posts/top-10-mistakes-node-developers-make
+N.B. 2:
+At the moment of creating this app I had no idea about shoptagr.com and how well they have implemented it! In case if you do want to watch some discounts you should opt for Shoptagr instead, since they do not use scraping but create an integration with shops.
 
-// https://scotch.io/tutorials/use-ejs-to-template-your-node-application
+Architecture
 
-// https://thecodebarbarian.com/sending-web-push-notifications-from-node-js.html
-// for push notifications
-// for email notifications
-// https://thecodebarbarian.com/sending-web-push-notifications-from-node-js.html
+the project was started for two purposes:
 
-// https://scotch.io/tutorials/build-and-understand-a-simple-nodejs-website-with-user-authentication
+experimentation and exploring
+getting discount info (ahahaha)
+The exploration part: I wanted to demonstrate the pattern of software development evolution from single file monolith system to single responsibility files and microservices and separation of front-end and back-end part to vertical decomposition.
 
-//postgresql
-// https://itnext.io/production-ready-node-js-rest-apis-setup-using-typescript-postgresql-and-redis-a9525871407
+The repository structure
+Repository consists of several major branches
 
+monolith-app-sample
+single-responsibility-files
+More inforation about web crawling / web scraping / etc.
 
-// check Asos products for discount
-// this module is super buggy and unreliable
+Ideas: EJS templates: https://scotch.io/tutorials/use-ejs-to-template-your-node-application
 
-// https://www.codementor.io/joshuaaroke/sending-html-message-in-nodejs-express-9i3d3uhjr
-// https://nodemailer.com/message/
-// https://burnermail.io/// check Asos products for discount
-// this module is super buggy and unreliable
-
-// https://www.codementor.io/joshuaaroke/sending-html-message-in-nodejs-express-9i3d3uhjr
-// https://nodemailer.com/message/
-// https://burnermail.io/
-
-// async function mail() {
-//   let account = await nodemailer.createTestAccount();
-
-//   let transporter = nodemailer.createTransport({
-//     host: "burner.977494f5@tryninja.io",
-//     port: 587,
-//     secure: false, // true for 465, false for other ports
-//     auth: {
-//       user: account.user, // generated ethereal user
-//       pass: account.pass // generated ethereal password
-//     }
-//   });
-
-//   // setup email data with unicode symbols
-//   let mailOptions = {
-//     from: '"Fred Foo 👻" <foo@example.com>', // sender address
-//     to: "margarita.obraztsova@futurice.com", // list of receivers
-//     subject: "Hello ✔", // Subject line
-//     text: "Hello world?", // plain text body
-//     html: "<b>Hello world?</b>" // html body
-//   };
-
-//   // send mail with defined transport object
-//   let info = await transporter.sendMail(mailOptions);
-// }
+Info here: https://medium.com/p/e6471942b43c/edit

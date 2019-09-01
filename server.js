@@ -36,7 +36,9 @@ var sessionChecker = (req, res, next) => {
 };
 
 function checkSignIn(req, res, next) {
+
   if (req.session.user) {
+    console.log("all good")
     next(); //If session exists, proceed to page
   } else {
     var err = new Error("Not logged in!");
@@ -47,19 +49,25 @@ function checkSignIn(req, res, next) {
 
 // route for Home-Page
 app.get("/", (req, res) => {
-  res.redirect("/login");
+  if (req.session.user) {
+    res.redirect("/dashboard");
+  } else {
+    res.redirect("/login");
+  }
+
 });
 
-app.get("/login", function(req, res) {
+app.get("/login", function (req, res) {
   res.render("login");
+
 });
 
 app
   .route("/signup")
-  .get(function(req, res) {
+  .get(function (req, res) {
     res.render("signup");
   })
-  .post(function(req, res) {
+  .post(function (req, res) {
     var username = req.body.login,
       password = req.body.password;
     dbManager.signUpPerson(username, password).then(d => {
@@ -69,14 +77,14 @@ app
     });
   });
 
-app.get("/logout", function(req, res) {
-  req.session.destroy(function() {
+app.get("/logout", function (req, res) {
+  req.session.destroy(function () {
     console.log("user logged out.");
   });
   res.render("login");
 });
 
-app.post("/login", function(req, res) {
+app.post("/login", function (req, res) {
   var username = req.body.login,
     password = req.body.password;
   dbManager
@@ -93,17 +101,27 @@ app.post("/login", function(req, res) {
     });
 });
 
-app.get("/dashboard", checkSignIn, function(req, res) {
+app.get('/index', function (req, res, utils) {
+  res.render("index", {
+    saleItems: [],
+    user: req.session.user,
+    productExists: false,
+    productLoading: false
+  });
+})
+
+app.get("/dashboard", checkSignIn, function (req, res) {
   async function getItems(user) {
     let saleItems = [];
     saleItems = await asosDBManager.getAllAsosItems(user);
+
     res.render("index", {
       saleItems: saleItems,
       user: req.session.user,
-      // deleteAsosItem: asosDBManager.deleteAsosItem,
-      productExists: req.query.productExists ? true : false,
-      productLoading: req.query.productLoading ? true : false
+      productExists: false,
+      productLoading: false
     });
+
   }
 
   if (req.session.user) {
@@ -113,7 +131,7 @@ app.get("/dashboard", checkSignIn, function(req, res) {
   }
 });
 
-app.get("/dashboard/:itemId", function(req, res) {
+app.get("/dashboard/:itemId", function (req, res) {
   async function getSingleItem(item) {
     let saleItems = [];
     saleItems = await asosDBManager.getAsosItem(item);
@@ -145,7 +163,7 @@ async function checkAsosItemInDB(url, callback1, callback2) {
     return null;
   }
 
-  await asosDBManager.checkAsosProductInDB({ productId: productId }, function(
+  await asosDBManager.checkAsosProductInDB({ productId: productId }, function (
     data
   ) {
     if (data !== null && data !== undefined) {
@@ -158,7 +176,7 @@ async function checkAsosItemInDB(url, callback1, callback2) {
   });
 }
 
-app.post("/addUrl", async function(req, res) {
+app.post("/addUrl", async function (req, res) {
   // get url from request
   const url1 = url.parse(req.body.url);
   const storePrint = detectOnlineStore(url1.host);
@@ -188,7 +206,7 @@ app.post("/addUrl", async function(req, res) {
         url: url1,
         name: req.session.user ? req.session.user : "undefined user"
       })
-      .then(function(response) {
+      .then(function (response) {
         res.redirect("/dashboard");
       })
       .catch(e => {
@@ -197,12 +215,12 @@ app.post("/addUrl", async function(req, res) {
   }
 });
 
-app.get("*", function(req, res) {
+app.get("*", function (req, res) {
   res.render("404");
 });
 
 // Any error
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   return res.status(500).render("error");
 });
 
