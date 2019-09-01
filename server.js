@@ -3,8 +3,6 @@ const app = express();
 const bodyParser = require("body-parser");
 const axios = require("axios");
 const url = require("url");
-const dbManager = require("./loginMongoDBManager");
-const asosDBManager = require("./asosMongoDBManager");
 const morgan = require("morgan");
 const session = require("client-sessions");
 const mongoose = require("mongoose");
@@ -373,6 +371,7 @@ var sessionChecker = (req, res, next) => {
 };
 
 function checkSignIn(req, res, next) {
+  console.log("req.session.user", req.session.user);
   if (req.session.user) {
     next(); //If session exists, proceed to page
   } else {
@@ -400,6 +399,7 @@ app
     var username = req.body.login,
       password = req.body.password;
     dbManager.signUpPerson(username, password).then(d => {
+      // res.redirect("/");
       // create session here
       req.session.user = username;
       res.redirect("/login");
@@ -570,27 +570,8 @@ function deleteItem(itemID) {
   console.log("delete", itemID);
 }
 
-axios
-  .post("http://localhost:1555/addUrl", {
-    url: url1,
-    name: req.session.user ? req.session.user : "undefined user"
-  })
-  .then(function (response) {
-    res.redirect("/dashboard");
-  })
-  .catch(e => {
-    console.log("error ", e);
-  });
-  }
-});
-
 app.get("*", function (req, res) {
   res.render("404");
-});
-
-// Any error
-app.use(function (err, req, res, next) {
-  return res.status(500).render("error");
 });
 
 app.listen(port, "127.0.0.1");
