@@ -1,3 +1,5 @@
+const asosDBManager = require("./asosMongoDBManager");
+
 function detectOnlineStore(url) {
   // regex for store domains
   const asosRegex = /asos/g;
@@ -20,4 +22,35 @@ function detectOnlineStore(url) {
   }
 }
 
-module.exports = detectOnlineStore;
+async function checkAsosItemInDB(url, callback1, callback2) {
+  console.log("checkItem");
+  const extractProductId = /(?:\/prd\/)\d{3,50}(?=\?)/g;
+  const extractProductIdNumber = /\d{3,50}/g;
+
+  const productIdArray = extractProductId.exec(url);
+  const productId = extractProductIdNumber.exec(productIdArray[0])[0];
+
+  if (!Number.isInteger(parseInt(productId))) {
+    // catch an error
+    throw new Error("product ID not detected");
+    return null;
+  }
+
+  await asosDBManager.checkAsosProductInDB({ productId: productId }, function (
+    data
+  ) {
+    if (data !== null && data !== undefined) {
+      callback1(data);
+    } else {
+      console.log("it does not exist");
+      callback2();
+      return null;
+    }
+  });
+}
+
+
+module.exports = {
+  detectOnlineStore,
+  checkAsosItemInDB
+};

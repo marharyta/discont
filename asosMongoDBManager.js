@@ -137,30 +137,19 @@ async function deleteAsosItem(productData, username, callback) {
     console.log("connection opened");
   });
 
-  return await AsosProducts.findOne({ productId: productData.productId }).then(
-    r => {
-      console.log("rule the world", r.users);
-      if (r.users.includes(username)) {
-        let elementNum = r.users.findIndex(item => item == username);
-        console.log("elementNum", elementNum);
-        // r.save(function(err) {
-        //   if (err) {
-        //     console.log("err", err);
-        //   }
-        //   console.log("product data saved");
-        // });
-      } else {
-        console.log("array already includes that username");
-        mongoose
-          .disconnect()
-          .then(d => {
-            console.log("conection closed ");
-          })
-          .catch(e => {
-            console.log("we got an error here", e);
-          });
+  return await AsosProducts.remove({ productId: productData.productId }).then(r => {
+      console.log("removed", r);
+      callback();
+     
+      mongoose
+        .disconnect()
+        .then(d => {
+          console.log("conection closed ");
+        })
+        .catch(e => {
+          console.log("we got an error here", e);
+        });
       }
-    }
   );
 }
 

@@ -49,6 +49,10 @@
           target="_blank">
           link
         </a>
+        <form method="POST" action="/deleteItem/" >
+          <input id="item_id" type="hidden" name="item_id" value=<%= item.productId %>>
+          <input type="submit" value="Delete">
+        </form>
 
       </div>
 
