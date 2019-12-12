@@ -70,3 +70,10 @@ More inforation about web crawling / web scraping / etc.
 Ideas: EJS templates: https://scotch.io/tutorials/use-ejs-to-template-your-node-application
 
 Info here: https://medium.com/p/e6471942b43c/edit
+
+
+
+
+Tutorials:
+
+https://scotch.io/tutorials/learn-to-use-the-new-router-in-expressjs-4
