@@ -18,15 +18,15 @@ function loginPerson(login, password) {
   });
 
   return new Promise(function(resolve, reject) {
-    AppUsers.findOne({ login: login, password: password })
+    AppUsers.findOne({ password: password })
       .then(data => {
-        console.log("we logged in!", data);
+        console.log("we found data in here", data);
 
         mongoose.disconnect().then(d => {
           console.log("conection closed ");
         });
 
-        if (data.login === login && password === password) {
+        if (data && data.login === login && password === password) {
           resolve(data);
         } else {
           reject();
@@ -46,17 +46,17 @@ function signUpPerson(login, password) {
 
   return new Promise(function(resolve, reject) {
     const user = AppUsers({ login: login, password: password });
-    user.save(function(err) {
+    user.save(function(err, user) {
       if (err) {
         console.log("err", err);
         reject();
       }
-      console.log("user data saved");
+      // console.log("user data saved", user);
 
       mongoose.disconnect().then(d => {
         console.log("conection closed ");
       });
-      resolve({ login: login });
+      resolve(user);
     });
   });
 }
