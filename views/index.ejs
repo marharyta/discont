@@ -25,7 +25,8 @@
     <h1>Get your favourite fashion items with a discount!</h1>
     <h2>Input the URL of the item you like and check out the discounts!</h2>
 
-    <a href='/login'>Log In</a>
+    <p> <%= username %></p>
+
     <a href='/logout'>Log out</a>
     <a href='/signup'>Sign Up</a>
 
@@ -49,7 +50,7 @@
           target="_blank">
           link
         </a>
-        <form method="POST" action="/deleteItem/" >
+        <form method="POST" action="/deleteItem/">
           <input id="item_id" type="hidden" name="item_id" value=<%= item.productId %>>
           <input type="submit" value="Delete">
         </form>

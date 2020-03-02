@@ -1,15 +1,19 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const cors = require('cors');
 const morgan = require("morgan");
 const session = require("client-sessions");
-const router = require('./api/router');
+
+const router = require('./router');
+
 const port = process.env.PORT || 1337;
 
 app.use("/assets", express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(morgan("dev"));
+app.use(cors());
 
 app.use(
   session({

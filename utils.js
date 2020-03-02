@@ -1,4 +1,4 @@
-const asosDBManager = require("./asosMongoDBManager");
+const asosDBManager = require("./database/mongodb/asosProducts");
 
 function detectOnlineStore(url) {
   // regex for store domains
@@ -48,7 +48,6 @@ async function checkAsosItemInDB(url, callback1, callback2) {
     }
   });
 }
-
 
 module.exports = {
   detectOnlineStore,

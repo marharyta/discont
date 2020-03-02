@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-const asosDBManager = require("./asosMongoDBManager");
+const asosDBManager = require("./database/mongodb/asosProducts");
 // const dbManager = require("./loginMongoDBManager");
 
 const port = process.env.PORT || 1555;

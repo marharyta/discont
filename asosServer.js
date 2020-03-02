@@ -2,14 +2,14 @@ const express = require("express");
 const app = express();
 
 const scrapeAsosProductPage = require("./asosProductPageScraper");
-const asosDBManager = require("./asosMongoDBManager");
+const asosDBManager = require("./database/mongodb/asosProducts");
 
 const port = process.env.PORT || 1555;
 
 app.use(express.urlencoded());
 app.use(express.json());
 
-app.post("/addUrl", function(req, res) {
+app.post("/addUrl", function (req, res) {
   scrapeAsosProductPage(req.body.url.href, req.body.name)
     .then(data => {
       asosDBManager.addAsosProductToDB(data, () => res.end("product added"));

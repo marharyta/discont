@@ -5,7 +5,7 @@ const http = require("http");
 
 const scrapeAsosProductPage = require("./asosProductPageScraper");
 // const dbManager = require("./loginMongoDBManager");
-const asosDBManager = require("./asosMongoDBManager");
+const asosDBManager = require("./database/mongodb/asosProducts");
 // const nodemailer = require("nodemailer");
 
 function checkAsosProduct(dataURL) {
