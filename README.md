@@ -25,6 +25,10 @@ Repository consists of several major branches
 
 - _monolith-app-sample_ - zero module separation
 - _single-responsibility-files_ - application with separate file, devided by a single responsibility principle
+- _json-web-token-authentification_ - (based on _single-responsibility-files_  )an attempt to create JWT authentification instead of session-based *(not finished for now)*
+- _3-layer-architecture_ - (based on _single-responsibility-files_ + 3 tier architecture)
+https://bytearcher.com/articles/node-project-structure/
+
 
 ## How to use
 

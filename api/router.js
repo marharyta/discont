@@ -1,33 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const dbManager = require("./loginMongoDBManager");
-const asosDBManager = require("./asosMongoDBManager");
+const dbManager = require("../loginMongoDBManager");
+const asosDBManager = require("../asosMongoDBManager");
 const url = require("url");
 const axios = require("axios");
-const { detectOnlineStore } = require("./utils");
-const { checkAsosItemInDB } = require("./utils");
-
-
-
-// const checkSignIn = (req, res, next) => {
-//     if (req.session.user) {
-//         console.log("user session detected", req.session.user);
-//         next(); //If session exists, proceed to page
-//     } else {
-//         var err = new Error("user session not detected", req.session.user);
-//         next(); //Error, trying to access unauthorized page!
-//     }
-// }
+const { detectOnlineStore } = require("../utils");
+const { checkAsosItemInDB } = require("../utils");
+const checkSignIn = require('./auth');
 
 router.use(checkSignIn);
-
-router.get("/", (req, res) => {
-    if (req.session.user) {
-        res.redirect("/dashboard");
-    } else {
-        res.redirect("/login");
-    }
-});
 
 // login 
 router

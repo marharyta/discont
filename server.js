@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const session = require("client-sessions");
-const router = require('./router');
+const router = require('./api/router');
 const port = process.env.PORT || 1337;
 
 app.use("/assets", express.static(__dirname + "/public"));
