@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-const scrapeAsosProductPage = require("./asosProductPageScraper");
+const scrapeAsosProductPage = require("./asosScraper/asosProductPageScraper");
 const asosDBManager = require("./database/mongodb/asosProducts");
 
 const port = process.env.PORT || 1555;
@@ -15,7 +15,7 @@ app.post("/addUrl", function (req, res) {
       asosDBManager.addAsosProductToDB(data, () => res.end("product added"));
     })
     .catch(e => {
-      console.log("error getting or saving the data", e);
+      console.log("error scraping or saving the data", e);
     });
 });
 

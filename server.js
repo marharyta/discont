@@ -7,7 +7,7 @@ const session = require("client-sessions");
 
 const router = require('./router');
 
-const port = process.env.PORT || 1337;
+const port = process.env.PORT || 1339;
 
 app.use("/assets", express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({ extended: true }));
