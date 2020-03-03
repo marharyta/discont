@@ -1,12 +1,13 @@
-const http = require("http");
 // var fs = require("fs");
 // const express = require("express");
 // const app = express();
-
-const scrapeAsosProductPage = require("./asosProductPageScraper");
 // const dbManager = require("./loginMongoDBManager");
-const asosDBManager = require("./database/mongodb/asosProducts");
 // const nodemailer = require("nodemailer");
+
+const http = require("http");
+const scrapeAsosProductPage = require("./asosScraper/asosProductPageScraper");
+const asosDBManager = require("./database/mongodb/asosProducts");
+
 
 function checkAsosProduct(dataURL) {
   return scrapeAsosProductPage(dataURL)
