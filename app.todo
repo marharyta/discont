@@ -12,3 +12,4 @@ TODO:
 ☐ add graph QL layer
 ☐ refactor Server Sent Events to only send update on db change
 ☐ eventual consistency (offline work of the app) (HLC)
+☐ maybe add aliexpress checker
