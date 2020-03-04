@@ -33,7 +33,7 @@ function addAsosProductToDB(productData, callback) {
         if (r == undefined || r == null) {
             console.log("we need to add products");
             // put that data into DB
-            const product = AsosProducts(productData);
+            const product = AsosProductsModel(productData);
             product.save(function (err) {
                 if (err) {
                     console.log("err", err);

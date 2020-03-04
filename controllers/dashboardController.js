@@ -44,10 +44,8 @@ function getDashboardItem(req, res) {
 }
 
 async function deleteDashboardItem(req, res) {
-    console.log("delete path works");
-    const url1 = req.body.item_id;
-    console.log('request params', url1);
-    asosDBManager.deleteAsosItem({ productId: url1 }, req.session.user, () => res.redirect('/dashboard'));
+    console.log("delete path works", req.params.itemId);
+    asosDBManager.deleteAsosItem({ productId: req.params.itemId }, req.session.user, () => res.redirect('/asosItems'));
 }
 
 async function addUrl(req, res) {
@@ -60,7 +58,7 @@ async function addUrl(req, res) {
             url1.href,
             data => {
                 asosDBManager.updateAsosProductInDB(data, req.session.user);
-                res.redirect(`/dashboard/${data.productId}?productExists=true`);
+                res.redirect(`/asosItems/${data.productId}?productExists=true`);
             },
             () => {
                 makeRequest();
@@ -76,12 +74,12 @@ async function addUrl(req, res) {
 
     function makeRequest() {
         axios
-            .post("http://localhost:1555/addUrl", {
+            .post("http://localhost:1555/asosItemUrl", {
                 url: url1,
                 name: req.session.user ? req.session.user : "undefined user"
             })
             .then(function (response) {
-                res.redirect("/dashboard");
+                res.redirect("/asosItems");
             })
             .catch(e => {
                 console.log("error ", e);

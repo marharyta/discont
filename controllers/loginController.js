@@ -16,7 +16,7 @@ function postLogin(req, res) {
             console.log("ud", d);
             req.session.userName = username;
             req.session.user = username;
-            res.redirect("/dashboard");
+            res.redirect("/asosItems");
         })
         .catch(e => {
             console.log('invalid credentials')

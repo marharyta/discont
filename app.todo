@@ -1,6 +1,7 @@
 TODO:
 
-☐ refactor app to be 3-layer
+☐ refactor app to be 3-layerd - done
+☐ create api with https://hackernoon.com/restful-api-design-step-by-step-guide-2f2c9f9fcdbf docs in mind
 ☐ implement runtime script that routinely checks products discounts
 ☐ Add linting
 ☐ Add TS
@@ -9,3 +10,5 @@ TODO:
 ☐ programmatically clean DB from unexistand user products
 ☐ finish JWT branch after making app 2 tier (frot end and back end separately + DB)
 ☐ add graph QL layer
+☐ refactor Server Sent Events to only send update on db change
+☐ eventual consistency (offline work of the app) (HLC)

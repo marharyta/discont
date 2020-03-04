@@ -30,7 +30,7 @@
     <a href='/logout'>Log out</a>
     <a href='/signup'>Sign Up</a>
 
-    <form method="POST" action="/addUrl">
+    <form method="POST" action="/asosItemUrl">
       <input type="url" name="url" id="url" placeholder="https://example.com" size="100" pattern="https://.*"
         class="form-control" />
 
@@ -40,7 +40,7 @@
     <div class="row">
       <% saleItems.forEach(function(item) { %>
       <div class="col-sm-4">
-        <a href=<%= "/dashboard/" + item.productId %>
+        <a href=<%= "/asosItems/" + item.productId %>
           class=<%= item.calculatedDiscount > 0 ? "text-danger" :"text-info" %> target="_blank">
           <img src=<%= item.images[0] %> class=<%= item.calculatedDiscount > 0 ? "danger" : " " %> />
           <h5> <%= item.productTitle %> </h5>
@@ -50,22 +50,15 @@
           target="_blank">
           link
         </a>
-        <form method="POST" action="/deleteItem/">
+        <form method="POST" action=<%= "/asosItems/" + item.productId %>>
           <input id="item_id" type="hidden" name="item_id" value=<%= item.productId %>>
           <input type="submit" value="Delete">
         </form>
 
       </div>
 
-
       <% }); %>
 
-      <!-- <% saleItems %>
-          <script>
-            localStorage.setItem('items', "<%= JSON.stringify(saleItems) %>");
-            var test = "<%= JSON.stringify(saleItems) %>";
-          </script> 
-         <%  %> -->
     </div>
   </div>
 

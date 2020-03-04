@@ -9,47 +9,35 @@ const { getDashboard, getDashboardItem, deleteDashboardItem, addUrl } = require(
 router.use(checkSignIn);
 
 // on initial login
-
-/* GET home page. */
 router.get("/", (req, res) => {
     if (req.session.user) {
-        res.redirect("/dashboard");
+        res.redirect("/asosItems");
     } else {
         res.redirect('/login');
     }
 });
 
-// login 
 router
     .get("/login", getLogin)
     .post("/login", postLogin);
 
-// sign up logic 
 router
     .get("/signup", getRegistration)
     .post("/signup", postRegistration);
 
-// log out
-router
-    .get("/logout", getLogout);
+router.get("/logout", getLogout);
 
-// dashboard
-router
-    .get("/dashboard", getDashboard);
+router.get("/asosItems", getDashboard);
 
 router
-    .get("/dashboard/:itemId", getDashboardItem);
+    .get("/asosItems/:itemId", getDashboardItem)
+    .post("/asosItems/:itemId", deleteDashboardItem);
 
-router
-    .post("/deleteItem/", deleteDashboardItem);
-
-router.
-    post("/addUrl", addUrl);
+router.post("/asosItemUrl", addUrl);
 
 router
     .get("*", function (req, res) {
         res.render("404");
     });
-
 
 module.exports = router;
