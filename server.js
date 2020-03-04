@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 const cors = require('cors');
 const morgan = require("morgan");
 const session = require("client-sessions");
-
 const router = require('./router');
 
 const port = process.env.PORT || 1339;

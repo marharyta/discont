@@ -44,7 +44,6 @@ function getDashboardItem(req, res) {
 }
 
 async function deleteDashboardItem(req, res) {
-    console.log("delete path works", req.params.itemId);
     asosDBManager.deleteAsosItem({ productId: req.params.itemId }, req.session.user, () => res.redirect('/asosItems'));
 }
 
@@ -71,14 +70,13 @@ async function addUrl(req, res) {
     }
 
     // TODO: refactor this later
-
     function makeRequest() {
         axios
             .post("http://localhost:1555/asosItemUrl", {
                 url: url1,
                 name: req.session.user ? req.session.user : "undefined user"
             })
-            .then(function (response) {
+            .then(function (res) {
                 res.redirect("/asosItems");
             })
             .catch(e => {

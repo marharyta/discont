@@ -12,15 +12,14 @@
         }
       });
     } else if (Notification.permission === "granted") {
-      var evtSource = new EventSource("http://localhost:5000");
+      const evtSource = new EventSource("http://localhost:5000");
 
       // evtSource.onmessage = function(e) {
       //   console.log('event', e);
       // }
       evtSource.onopen = function (e) {
         evtSource.onmessage = function (e) {
-          console.log("event message", e);
-          var notification = new Notification(`${e.data}`);
+          const notification = new Notification(`${e.data}`);
         };
       };
 

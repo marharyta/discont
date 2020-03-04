@@ -6,8 +6,8 @@ router
         res.render("signup");
     })
     .post("/signup", function (req, res) {
-        var username = req.body.login,
-            password = req.body.password;
+        const username = req.body.login;
+        const password = req.body.password;
         dbManager.signUpPerson(username, password).then(d => {
             // create session here
             req.session.user = username;
