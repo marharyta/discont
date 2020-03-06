@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
 
-const scrapeAsosProductPage = require("./asosScraper/asosProductPageScraper");
-const asosDBManager = require("./database/mongodb/asosProducts");
+const scrapeAsosProductPage = require("./asosProductPageScraper");
+const asosDBManager = require("../database/mongodb/asosProducts");
 
 const port = process.env.PORT || 1555;
 

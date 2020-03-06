@@ -1,7 +1,7 @@
 const asosDBManager = require("../database/mongodb/asosProducts");
 const url = require("url");
 const axios = require("axios");
-const { detectOnlineStore, checkAsosItemInDB } = require("../utils");
+const { detectOnlineStore, checkAsosItemInDB } = require("../asosScraper/utils");
 
 function getDashboard(req, res) {
     async function getItems(user) {
@@ -60,7 +60,7 @@ async function addUrl(req, res) {
                 res.redirect(`/asosItems/${data.productId}?productExists=true`);
             },
             () => {
-                makeRequest();
+                makeRequest(res);
             }
         );
     } else if (storePrint === "zalando") {
@@ -70,14 +70,14 @@ async function addUrl(req, res) {
     }
 
     // TODO: refactor this later
-    function makeRequest() {
+    function makeRequest(res) {
         axios
             .post("http://localhost:1555/asosItemUrl", {
                 url: url1,
                 name: req.session.user ? req.session.user : "undefined user"
             })
-            .then(function (res) {
-                res.redirect("/asosItems");
+            .then(function () {
+                res.redirect("/");
             })
             .catch(e => {
                 console.log("error ", e);

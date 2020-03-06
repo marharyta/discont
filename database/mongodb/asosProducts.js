@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const mongooseConnect = require("./mongooseConnector");
-require("dotenv").config();
+// require("dotenv").config();
+const dotenv = require('dotenv');
+dotenv.config();
 
 const AsosProductsModel = require('../../models/productOnAsos');
 
@@ -25,7 +27,7 @@ function checkAsosProductInDB(productData, callback) {
 }
 
 function addAsosProductToDB(productData, callback) {
-    console.log("addProductToDB start");
+    console.log("addProductToDB start", process.env);
     mongooseConnect();
 
     AsosProductsModel.findOne({ productId: productData.productId }).then(r => {
