@@ -3,11 +3,13 @@
 ## Node.js based Web crawler for fashion online stores
 
 **N.B.:**  
+
 **Discont as an application was created by me a couple of years back in order to watch some discounts on the items online that I liked.
+
 This service is not in use anymore and any update in this service will be made for solely educational purposes, you should read your customer agreement (part that mentions web scraping) before doing anything with it.**
 
 **N.B. 2:**  
-**At the moment of creating this app I had no idea about [shoptagr.com](shoptagr.com) and how well they have implemented it! In case if you do want to watch some discounts you should opt for Shoptagr instead, since they do not use scraping but create an integration with shops.**
+**At the moment of creating this app I had no idea about [shoptagr.com](shoptagr.com) and how well they have implemented it! In case if you do want to watch some discounts you should opt for Shoptagr instead, since they do not use scraping but create integrations with shops.**
 
 ## Architecture
 
@@ -18,16 +20,19 @@ the project was started for two purposes:
 
 The exploration part:
 I wanted to demonstrate the pattern of software development evolution from single file monolith system to single responsibility files and microservices and separation of front-end and back-end part to vertical decomposition.
+A lot of Node.js tutorials are showing very basic introduction to Node.js, yet fail to describe the natural progression of the application development.
 
 ## The repository structure
 
-Repository consists of several major branches
-
-- _monolith-app-sample_ - zero module separation
-- _single-responsibility-files_ - application with separate file, devided by a single responsibility principle
+Repository consists of several major branches:
+- _master_ - this one, mostly docs
+- _monolith-app-sample_ - zero module separation, the very first version of the application, minimum functionality
+- _single-responsibility-files_ - application with separate files, devided by a single responsibility principle
 - _json-web-token-authentification_ - (based on _single-responsibility-files_  )an attempt to create JWT authentification instead of session-based *(not finished for now)*
-- _3-layer-architecture_ - (based on _single-responsibility-files_ + 3 tier architecture)
+- _3-layer-architecture_ - (based on _single-responsibility-files_ + 3 tier architecture) -
 https://bytearcher.com/articles/node-project-structure/
+https://github.com/reactjs/express-react-views
+
 
 
 ## How to use

@@ -11,6 +11,8 @@ const port = process.env.PORT || 1339;
 app.use("/assets", express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
+// app.set('view engine', 'jsx');
+// app.engine('jsx', require('express-react-views').createEngine());
 app.use(morgan("dev"));
 app.use(cors());
 
