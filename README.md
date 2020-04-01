@@ -30,8 +30,8 @@ Repository consists of several major branches:
 - _single-responsibility-files_ - application with separate files, devided by a single responsibility principle
 - _json-web-token-authentification_ - (based on _single-responsibility-files_  )an attempt to create JWT authentification instead of session-based *(not finished for now)*
 - _3-layer-architecture_ - (based on _single-responsibility-files_ + 3 tier architecture) -
-https://bytearcher.com/articles/node-project-structure/
-https://github.com/reactjs/express-react-views
+
+
 
 
 
