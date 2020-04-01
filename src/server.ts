@@ -1,14 +1,16 @@
-const express = require("express");
-const app = express();
-const bodyParser = require("body-parser");
-const cors = require('cors');
-const morgan = require("morgan");
-const session = require("client-sessions");
-const router = require('./router');
+import express from "express";
+import path from "path";
+import bodyParser from "body-parser";
+import cors from "cors";
+import morgan from "morgan";
+import session from "client-sessions";
+import router from "./router";
 
-const port = process.env.PORT || 1339;
+const app = express();
+const port = process.env.PORT || 1259;
 
 app.use("/assets", express.static(__dirname + "/public"));
+app.set("views", path.join(__dirname, "views"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 // app.set('view engine', 'jsx');
@@ -25,11 +27,11 @@ app.use(
   })
 );
 
-app.use('/', router);
+app.use(router);
 
 // Any error
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res, next) {
   return res.status(500).render("error");
 });
 
-app.listen(port, "127.0.0.1");
+app.listen(port);
