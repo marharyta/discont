@@ -3,8 +3,6 @@ const app = express();
 const bodyParser = require("body-parser");
 const axios = require("axios");
 const url = require("url");
-const dbManager = require("./loginMongoDBManager");
-const asosDBManager = require("./asosMongoDBManager");
 const morgan = require("morgan");
 const session = require("client-sessions");
 const mongoose = require("mongoose");
@@ -42,11 +40,11 @@ const user = new Schema({
 const AppUsers = mongoose.model("users", user);
 
 function loginPerson(login, password) {
-  mongoose.connect(process.env.moongoDBLink).then(d => {
+  return mongoose.connect(process.env.moongoDBLink).then(d => {
     console.log("connection opened");
   });
 
-  return new Promise(function (resolve, reject) {
+  return new Promise(function(resolve, reject) {
     AppUsers.findOne({ login: login, password: password })
       .then(data => {
         console.log("we logged in!", data);
@@ -73,9 +71,9 @@ function signUpPerson(login, password) {
     console.log("connection opened");
   });
 
-  return new Promise(function (resolve, reject) {
+  return new Promise(function(resolve, reject) {
     const user = AppUsers({ login: login, password: password });
-    user.save(function (err) {
+    user.save(function(err) {
       if (err) {
         console.log("err", err);
         reject();
@@ -144,7 +142,7 @@ function addAsosProductToDB(productData, username, callback) {
       // put that data into DB
       productData.users.push(username);
       const product = AsosProducts(productData);
-      product.save(function (err) {
+      product.save(function(err) {
         if (err) {
           console.log("err", err);
         }
@@ -173,7 +171,7 @@ function updateAsosProductInDB(productData, username, callback) {
     // console.log("rule the world", r.users);
     if (!r.users.includes(username)) {
       r.users.push(username);
-      r.save(function (err) {
+      r.save(function(err) {
         if (err) {
           console.log("err", err);
         }
@@ -373,6 +371,7 @@ var sessionChecker = (req, res, next) => {
 };
 
 function checkSignIn(req, res, next) {
+  console.log("req.session.user", req.session.user);
   if (req.session.user) {
     next(); //If session exists, proceed to page
   } else {
@@ -387,33 +386,34 @@ app.get("/", (req, res) => {
   res.redirect("/login");
 });
 
-app.get("/login", function (req, res) {
+app.get("/login", function(req, res) {
   res.render("login");
 });
 
 app
   .route("/signup")
-  .get(function (req, res) {
+  .get(function(req, res) {
     res.render("signup");
   })
-  .post(function (req, res) {
+  .post(function(req, res) {
     var username = req.body.login,
       password = req.body.password;
     dbManager.signUpPerson(username, password).then(d => {
+      // res.redirect("/");
       // create session here
       req.session.user = username;
       res.redirect("/login");
     });
   });
 
-app.get("/logout", function (req, res) {
-  req.session.destroy(function () {
+app.get("/logout", function(req, res) {
+  req.session.destroy(function() {
     console.log("user logged out.");
   });
   res.render("login");
 });
 
-app.post("/login", function (req, res) {
+app.post("/login", function(req, res) {
   var username = req.body.login,
     password = req.body.password;
   dbManager
@@ -430,7 +430,7 @@ app.post("/login", function (req, res) {
     });
 });
 
-app.get("/dashboard", checkSignIn, function (req, res) {
+app.get("/dashboard", checkSignIn, function(req, res) {
   async function getItems(user) {
     saleItems = await asosDBManager.getAllAsosItems(user);
     res.render("index", {
@@ -448,7 +448,7 @@ app.get("/dashboard", checkSignIn, function (req, res) {
   }
 });
 
-app.get("/dashboard/:itemId", function (req, res) {
+app.get("/dashboard/:itemId", function(req, res) {
   async function getSingleItem(item) {
     saleItems = await asosDBManager.getAsosItem(item);
     res.render("sale", {
@@ -501,7 +501,7 @@ async function checkAsosItemInDB(url, callback1, callback2) {
     return null;
   }
 
-  await asosDBManager.checkAsosProductInDB({ productId: productId }, function (
+  await asosDBManager.checkAsosProductInDB({ productId: productId }, function(
     data
   ) {
     if (data !== null && data !== undefined) {
@@ -514,7 +514,7 @@ async function checkAsosItemInDB(url, callback1, callback2) {
   });
 }
 
-app.post("/addUrl", async function (req, res) {
+app.post("/addUrl", async function(req, res) {
   // get url from request
   const url1 = url.parse(req.body.url);
   const storePrint = detectOnlineStore(url1.host);
@@ -570,27 +570,8 @@ function deleteItem(itemID) {
   console.log("delete", itemID);
 }
 
-axios
-  .post("http://localhost:1555/addUrl", {
-    url: url1,
-    name: req.session.user ? req.session.user : "undefined user"
-  })
-  .then(function (response) {
-    res.redirect("/dashboard");
-  })
-  .catch(e => {
-    console.log("error ", e);
-  });
-  }
-});
-
-app.get("*", function (req, res) {
+app.get("*", function(req, res) {
   res.render("404");
-});
-
-// Any error
-app.use(function (err, req, res, next) {
-  return res.status(500).render("error");
 });
 
 app.listen(port, "127.0.0.1");
