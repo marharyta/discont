@@ -1,15 +1,14 @@
 {
   "name": "discont",
   "version": "1.0.0",
-  "description": "Find when the item is on sale",
+  "description": "Find when the item from Asos is on sale",
   "main": "lib/server.js",
   "license": "MIT",
   "scripts": {
-    "dev": " babel-node ./src/server.ts --extensions '.ts,.js'",
-    "dev-asos": " babel-node ./src/asosScraper/asosServer.ts --extensions '.ts,.js'",
-    "lint": " ",
-    "lint:css": " ",
-    "build": "babel src --out-dir lib --copy-files --extensions '.ts,.js'"
+    "dev": "babel-node ./src/server.ts --extensions '.ts,.js'",
+    "dev-asos": "babel-node ./src/asosScraper/asosServer.ts --extensions '.ts,.js'",
+    "build": "babel src --out-dir lib --copy-files --extensions '.ts,.js'",
+    "lint": " "
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
