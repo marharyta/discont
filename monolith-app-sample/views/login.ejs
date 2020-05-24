@@ -1,38 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-      <% include ./partials/head %>
-  </head>
-  <body>
-    
-    <div class="container">
-        
-      <h1>Login</h1>
 
+<head>
+  <% include ./partials/head %>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <h2>Login</h2>
       <form method="POST" action="/login">
-        <input
-          type="text"
-          name="login"
-          id="login"
-          size="100"
-          class="form-control"
-        />
-
-        <input
-          type="text"
-          name="password"
-          id="password"
-          size="100"
-          class="form-control"
-        />
-
-        <input type="submit" value="OK" id="sumit" class="btn btn-default"/>
+        <input type="text" name="login" id="login" size="100" class="form-control" />
+        <input type="password" name="password" id="password" size="100" class="form-control" />
+        <input type="submit" value="OK" id="sumit" class="btn btn-default" />
       </form>
-      </div>
     </div>
+  </div>
 
-    <footer>
-        <% include ./partials/footer %>
-    </footer>
-  </body>
+  <% include ./partials/footer %>
+</body>
+
 </html>

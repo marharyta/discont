@@ -10,23 +10,7 @@ const puppeteer = require("puppeteer");
 const cheerio = require("cheerio");
 
 require("dotenv").config();
-
-// https://www.airpair.com/node.js/posts/top-10-mistakes-node-developers-make
-
-// https://scotch.io/tutorials/use-ejs-to-template-your-node-application
-
-// https://thecodebarbarian.com/sending-web-push-notifications-from-node-js.html
-// for push notifications
-// for email notifications
-// https://thecodebarbarian.com/sending-web-push-notifications-from-node-js.html
-
-// https://scotch.io/tutorials/build-and-understand-a-simple-nodejs-website-with-user-authentication
-
-//postgresql
-// https://itnext.io/production-ready-node-js-rest-apis-setup-using-typescript-postgresql-and-redis-a9525871407
 const port = process.env.PORT || 1337;
-
-// process.env.moongoDBLink
 
 // Define schema for product
 const Schema = mongoose.Schema;
@@ -44,7 +28,7 @@ function loginPerson(login, password) {
     console.log("connection opened");
   });
 
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     AppUsers.findOne({ login: login, password: password })
       .then(data => {
         console.log("we logged in!", data);
@@ -71,9 +55,9 @@ function signUpPerson(login, password) {
     console.log("connection opened");
   });
 
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     const user = AppUsers({ login: login, password: password });
-    user.save(function(err) {
+    user.save(function (err) {
       if (err) {
         console.log("err", err);
         reject();
@@ -142,7 +126,7 @@ function addAsosProductToDB(productData, username, callback) {
       // put that data into DB
       productData.users.push(username);
       const product = AsosProducts(productData);
-      product.save(function(err) {
+      product.save(function (err) {
         if (err) {
           console.log("err", err);
         }
@@ -171,7 +155,7 @@ function updateAsosProductInDB(productData, username, callback) {
     // console.log("rule the world", r.users);
     if (!r.users.includes(username)) {
       r.users.push(username);
-      r.save(function(err) {
+      r.save(function (err) {
         if (err) {
           console.log("err", err);
         }
@@ -362,7 +346,7 @@ app.use(
 );
 
 // middleware function to check for logged-in users
-var sessionChecker = (req, res, next) => {
+const sessionChecker = (req, res, next) => {
   if (req.session.user) {
     res.redirect("/dashboard");
   } else {
@@ -386,16 +370,16 @@ app.get("/", (req, res) => {
   res.redirect("/login");
 });
 
-app.get("/login", function(req, res) {
+app.get("/login", function (req, res) {
   res.render("login");
 });
 
 app
   .route("/signup")
-  .get(function(req, res) {
+  .get(function (req, res) {
     res.render("signup");
   })
-  .post(function(req, res) {
+  .post(function (req, res) {
     var username = req.body.login,
       password = req.body.password;
     dbManager.signUpPerson(username, password).then(d => {
@@ -406,14 +390,14 @@ app
     });
   });
 
-app.get("/logout", function(req, res) {
-  req.session.destroy(function() {
+app.get("/logout", function (req, res) {
+  req.session.destroy(function () {
     console.log("user logged out.");
   });
   res.render("login");
 });
 
-app.post("/login", function(req, res) {
+app.post("/login", function (req, res) {
   var username = req.body.login,
     password = req.body.password;
   dbManager
@@ -430,7 +414,7 @@ app.post("/login", function(req, res) {
     });
 });
 
-app.get("/dashboard", checkSignIn, function(req, res) {
+app.get("/dashboard", checkSignIn, function (req, res) {
   async function getItems(user) {
     saleItems = await asosDBManager.getAllAsosItems(user);
     res.render("index", {
@@ -448,7 +432,7 @@ app.get("/dashboard", checkSignIn, function(req, res) {
   }
 });
 
-app.get("/dashboard/:itemId", function(req, res) {
+app.get("/dashboard/:itemId", function (req, res) {
   async function getSingleItem(item) {
     saleItems = await asosDBManager.getAsosItem(item);
     res.render("sale", {
@@ -470,7 +454,6 @@ function detectOnlineStore(url) {
   const asosRegex = /asos/g;
   const zalandoRegex = /zalando/g;
   const nastygalRegex = /nastygal(?=\.com)/g;
-  const stockmannRegex = /zalando/g;
 
   // check if link is from any supported website
   const isAsos = asosRegex.test(url);
@@ -501,7 +484,7 @@ async function checkAsosItemInDB(url, callback1, callback2) {
     return null;
   }
 
-  await asosDBManager.checkAsosProductInDB({ productId: productId }, function(
+  await asosDBManager.checkAsosProductInDB({ productId: productId }, function (
     data
   ) {
     if (data !== null && data !== undefined) {
@@ -514,7 +497,7 @@ async function checkAsosItemInDB(url, callback1, callback2) {
   });
 }
 
-app.post("/addUrl", async function(req, res) {
+app.post("/addUrl", async function (req, res) {
   // get url from request
   const url1 = url.parse(req.body.url);
   const storePrint = detectOnlineStore(url1.host);
@@ -570,7 +553,7 @@ function deleteItem(itemID) {
   console.log("delete", itemID);
 }
 
-app.get("*", function(req, res) {
+app.get("*", function (req, res) {
   res.render("404");
 });
 

@@ -4,7 +4,7 @@ TODO:
 ☐ create api with https://hackernoon.com/restful-api-design-step-by-step-guide-2f2c9f9fcdbf docs in mind - done
 ☐ implement runtime script that routinely checks products discounts
 ☐ Add linting
-☐ Add TS
+☐ Add TS - done
 ☐ make app functional (from https://mostly-adequate.gitbooks.io/mostly-adequate-guide/)
 ☐ refactor app to .jsx instead of current termplates - in progress(https://github.com/reactjs/express-react-views)
 ☐ set up local DB instance through Docker vs mlab

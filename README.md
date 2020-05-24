@@ -59,3 +59,17 @@ https://scotch.io/tutorials/learn-to-use-the-new-router-in-expressjs-4
 Authentification:
 
 https://hackernoon.com/why-do-we-need-the-json-web-token-jwt-in-the-modern-web-k29l3sfd https://itnext.io/so-what-the-heck-is-jwt-or-json-web-token-dca8bcb719a6
+
+// https://www.airpair.com/node.js/posts/top-10-mistakes-node-developers-make
+
+// https://scotch.io/tutorials/use-ejs-to-template-your-node-application
+
+// https://thecodebarbarian.com/sending-web-push-notifications-from-node-js.html
+// for push notifications
+// for email notifications
+// https://thecodebarbarian.com/sending-web-push-notifications-from-node-js.html
+
+// https://scotch.io/tutorials/build-and-understand-a-simple-nodejs-website-with-user-authentication
+
+//postgresql
+// https://itnext.io/production-ready-node-js-rest-apis-setup-using-typescript-postgresql-and-redis-a9525871407
