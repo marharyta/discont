@@ -4,7 +4,7 @@ node_js:
 dist: trusty
 env: 
     - NODE_ENV=dev
-cashe: 
+cache: 
     directories:
         - node_modules
 install:
