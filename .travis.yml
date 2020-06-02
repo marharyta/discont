@@ -11,3 +11,5 @@ install:
     - yarn install
 test: 
     - yarn test
+services:
+    - docker
