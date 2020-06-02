@@ -7,9 +7,9 @@ env:
 cache: 
     directories:
         - node_modules
+before_install: 
+    - cd 3-layers-ts
 install:
     - yarn install
 test: 
     - yarn test
-services:
-    - docker
