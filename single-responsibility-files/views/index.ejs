@@ -6,37 +6,29 @@
 </head>
 
 <body>
-
+  <% include ./partials/header %>
   <div class="container">
     <div class="row">
-      <% if(productExists) { %>
-      <div class="col-sm-12">
-        Product exists already
-      </div>
-      <% } %>
-    </div>
-    <div>
       <% if(productLoading) { %>
       <p class="danger">
         product loading
       </p>
       <% } %>
     </div>
-    <h1>Get your favourite fashion items with a discount!</h1>
-    <h2>Input the URL of the item you like and check out the discounts!</h2>
-
-    <a href='/login'>Log In</a>
-    <a href='/logout'>Log out</a>
-    <a href='/signup'>Sign Up</a>
-
-    <form method="POST" action="/addUrl">
-      <input type="url" name="url" id="url" placeholder="https://example.com" size="100" pattern="https://.*"
-        class="form-control" />
-
-      <input type="submit" value="OK" id="sumit" class="btn btn-default" />
-    </form>
-
     <div class="row">
+      <h2>Get your favourite fashion items with a discount!</h2>
+      <h2>Input the URL of the item you like and check out the discounts from ASOS!</h2>
+    </div>
+
+    <div class="row link-input">
+      <form method="POST" action="/addUrl">
+        <input type="url" name="url" id="url" placeholder="https://example.com" size="100" pattern="https://.*"
+          class="form-control" />
+        <input type="submit" value="Add item" id="sumit" class="btn btn-default" />
+      </form>
+    </div>
+
+    <!-- <div class="row">
       <% saleItems.forEach(function(item) { %>
       <div class="col-sm-4">
         <a href=<%= "/dashboard/" + item.productId %>
@@ -49,7 +41,7 @@
           target="_blank">
           link
         </a>
-        <form method="POST" action="/deleteItem/" >
+        <form method="POST" action="/deleteItem/">
           <input id="item_id" type="hidden" name="item_id" value=<%= item.productId %>>
           <input type="submit" value="Delete">
         </form>
@@ -58,13 +50,36 @@
 
 
       <% }); %>
-
-      <!-- <% saleItems %>
-          <script>
-            localStorage.setItem('items', "<%= JSON.stringify(saleItems) %>");
-            var test = "<%= JSON.stringify(saleItems) %>";
-          </script> 
-         <%  %> -->
+    </div> -->
+    <div class="row">
+      <div class="js-masonry">
+        <div class="row" id="work-grid">
+          <% saleItems.forEach(function(item) { %>
+          <div class="col-md-4 col-sm-4 col-xs-12 mix">
+            <a class="img home-portfolio-image" href=<%= "/dashboard/" + item.productId %>
+              class=<%= item.calculatedDiscount > 0 ? "text-danger" :"text-info" %> target="_blank">
+              <img src=<%= item.images[0] %> />
+              <div class="overlay-thumb">
+                <div class="details">
+                  <h5> <%= item.productTitle %> </h5>
+                  <h5 class=<%= item.calculatedDiscount > 0 ? " text-danger" : " " %>>
+                    Discount:
+                    <%= item.calculatedDiscount %>
+                  </h5>
+                  <!-- Explain why DELETE wont work here -->
+                  <!-- <form method="POST" action=<%= "/dashboard/delete/" + item.productId %>>
+                    <input type="submit" value="Delete item" id="delete" class="btn btn-default" />
+                  </form> -->
+                </div>
+              </div>
+            </a>
+            <a href=<%= item.productURL %> class=<%= item.calculatedDiscount > 0 ? "text-danger" :"text-info" %>>
+              link on Asos
+            </a>
+          </div>
+          <% }); %>
+        </div>
+      </div>
     </div>
   </div>
 

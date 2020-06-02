@@ -52,7 +52,7 @@ async function scrapeAsosProductPage(url, username) {
 
   await page
     .goto(url, { waitUntil: "networkidle2" })
-    .catch(e => console.log("navigation failed ", e));
+    .catch(e => console.log("navigation to browsers failed ", e));
 
   await page
     .waitFor(3000)

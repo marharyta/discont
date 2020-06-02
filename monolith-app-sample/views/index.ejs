@@ -8,20 +8,6 @@
 <body>
   <% include ./partials/header %>
   <div class="container">
-    <!-- <div class="row">
-      <% if(productExists) { %>
-      <div class="col-sm-12">
-        Product exists already
-      </div>
-      <% } %>
-    </div> -->
-    <!-- <div>
-      <% if(productLoading) { %>
-      <p class="danger">
-        product loading
-      </p>
-      <% } %>
-    </div> -->
     <div class="row">
       <h2>Get your favourite fashion items with a discount!</h2>
       <h2>Input the URL of the item you like and check out the discounts from ASOS!</h2>
@@ -50,6 +36,10 @@
                     Discount:
                     <%= item.calculatedDiscount %>
                   </h5>
+                  <!-- Explain why DELETE wont work here -->
+                  <!-- <form method="POST" action=<%= "/dashboard/delete/" + item.productId %>>
+                    <input type="submit" value="Delete item" id="delete" class="btn btn-default" />
+                  </form> -->
                 </div>
               </div>
             </a>
@@ -61,8 +51,6 @@
         </div>
       </div>
     </div>
-
-
   </div>
 
   <footer>

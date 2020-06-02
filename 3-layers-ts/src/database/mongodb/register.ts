@@ -7,9 +7,9 @@ function registerPerson(login, password) {
     console.log("connection opened");
   });
 
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     const user = UsersModel({ login: login, password: password });
-    user.save(function(err) {
+    user.save(function (err) {
       if (err) {
         console.log("err", err);
         reject();

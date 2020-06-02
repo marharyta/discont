@@ -1,4 +1,7 @@
-const checkSignIn = (req, res, next) => {
+const checkSignIn = (err, req, res, next) => {
+  if (err) {
+    next(err);
+  }
   if (req.session.user) {
     console.log("user session detected", req.session.user);
     next();

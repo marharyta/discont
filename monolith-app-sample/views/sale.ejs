@@ -16,7 +16,7 @@
       <% } %>
     </div>
     <div class="row">
-      <% saleItems.forEach(function(item) { %>
+      <% saleItems.length > 0 ? saleItems.forEach(function(item) { %>
       <div class="col-sm-4">
         <img src=<%= item.images[0] %> class=<%= item.calculatedDiscount > 0 ? "danger" : " " %> />
 
@@ -33,7 +33,7 @@
         </div>
         <% } %>
       </div>
-      <% }); %>
+      <% }) : null %>
     </div>
   </div>
 

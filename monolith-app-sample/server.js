@@ -9,10 +9,13 @@ const mongoose = require("mongoose");
 const puppeteer = require("puppeteer");
 const cheerio = require("cheerio");
 
+// const cluster = require('cluster');
+
+// console.log(cluster.isMaster)
+
 require("dotenv").config();
 const port = process.env.PORT || 1337;
 
-// Define schema for product
 const Schema = mongoose.Schema;
 
 const user = new Schema({
@@ -23,19 +26,24 @@ const user = new Schema({
 
 const AppUsers = mongoose.model("users", user);
 
-function loginPerson(login, password) {
+function openConnectionToDB() {
   return mongoose.connect(process.env.moongoDBLink).then(d => {
     console.log("connection opened");
   });
+}
 
-  return new Promise(function (resolve, reject) {
+function closeConnectionToDB() {
+  return mongoose.disconnect().then(d => {
+    console.log("conection to MongoDB closed ");
+    return d;
+  }).catch(e => console.log('failed to Close DB connection'));
+}
+
+function loginPerson(login, password) {
+  return openConnectionToDB().then(() => new Promise(function (resolve, reject) {
     AppUsers.findOne({ login: login, password: password })
       .then(data => {
-        console.log("we logged in!", data);
-
-        mongoose.disconnect().then(d => {
-          console.log("conection closed ");
-        });
+        closeConnectionToDB();
 
         if (data.login === login && password === password) {
           resolve(data);
@@ -47,29 +55,25 @@ function loginPerson(login, password) {
         console.log("error trying to log in ", e);
         reject();
       });
-  });
+  })).catch(e => e);
+
 }
 
 function signUpPerson(login, password) {
-  mongoose.connect(process.env.moongoDBLink).then(d => {
-    console.log("connection opened");
-  });
-
-  return new Promise(function (resolve, reject) {
+  return openConnectionToDB().then(() => new Promise(function (resolve, reject) {
     const user = AppUsers({ login: login, password: password });
     user.save(function (err) {
       if (err) {
         console.log("err", err);
         reject();
       }
-      console.log("user data saved");
 
       mongoose.disconnect().then(d => {
         console.log("conection closed ");
       });
       resolve({ login: login });
     });
-  });
+  })).catch(e => e);
 }
 
 const dbManager = {
@@ -92,132 +96,99 @@ const productOnAsos = new Schema({
 const AsosProducts = mongoose.model("asosproducts", productOnAsos);
 
 function checkAsosProductInDB(productData, callback) {
-  mongoose.connect(process.env.moongoDBLink).then(d => {
-    console.log("connection opened");
-  });
-
-  AsosProducts.findOne({ productId: productData.productId }).then(product => {
+  return openConnectionToDB().then(() => AsosProducts.findOne({ productId: productData.productId }).then(product => {
     if (product === undefined || product === null) {
-      console.log("we need to add product");
       mongoose.disconnect().then(d => {
         callback(product);
         console.log("conection closed ");
       });
     } else {
-      console.log("product already exists");
       mongoose.disconnect().then(d => {
         callback(product);
         console.log("conection closed ");
       });
     }
-  });
+  })).catch(e => e);
 }
 
 function addAsosProductToDB(productData, username, callback) {
-  console.log("addProductToDB start");
-  mongoose.connect(process.env.moongoDBLink).then(d => {
-    console.log("connection opened");
-  });
+  return openConnectionToDB().then(() =>
 
-  AsosProducts.findOne({ productId: productData.productId }).then(r => {
-    console.log("find one");
-    if (r == undefined || r == null) {
-      console.log("we need to add products");
-      // put that data into DB
-      productData.users.push(username);
-      const product = AsosProducts(productData);
-      product.save(function (err) {
-        if (err) {
-          console.log("err", err);
-        }
-        console.log("product data saved");
+    AsosProducts.findOne({ productId: productData.productId }).then(r => {
+      if (r == undefined || r == null) {
+        productData.users.push(username);
+        const product = AsosProducts(productData);
+        product.save(function (err) {
+          if (err) {
+            console.log("err", err);
+          }
+          mongoose.disconnect().then(d => {
+            console.log("conection closed ");
+          });
+          callback();
+        });
+      } else {
         mongoose.disconnect().then(d => {
           console.log("conection closed ");
         });
         callback();
-      });
-    } else {
-      console.log("product already exists");
-      mongoose.disconnect().then(d => {
-        console.log("conection closed ");
-      });
-      callback();
-    }
-  });
+      }
+    })).catch(e => e);
 }
 
 function updateAsosProductInDB(productData, username, callback) {
-  mongoose.connect(process.env.moongoDBLink).then(d => {
-    console.log("connection opened");
-  });
+  return openConnectionToDB().then(() =>
 
-  AsosProducts.findOne({ productId: productData.productId }).then(r => {
-    // console.log("rule the world", r.users);
-    if (!r.users.includes(username)) {
-      r.users.push(username);
-      r.save(function (err) {
-        if (err) {
-          console.log("err", err);
-        }
-        console.log("product data saved");
-      });
-    } else {
-      console.log("array already includes that username");
-      mongoose
-        .disconnect()
-        .then(d => {
-          console.log("conection closed ");
-        })
-        .catch(e => {
-          console.log("we got an error here", e);
+    AsosProducts.findOne({ productId: productData.productId }).then(r => {
+      if (!r.users.includes(username)) {
+        r.users.push(username);
+        r.save(function (err) {
+          if (err) {
+            console.log("err", err);
+          }
         });
-    }
-  });
+      } else {
+        mongoose
+          .disconnect()
+          .then(d => {
+            console.log("conection closed ");
+          })
+          .catch(e => {
+            console.log("we got an error here", e);
+          });
+      }
+    })).catch(e => e);
 }
 
 async function getAllAsosItems(username) {
-  console.log("getAllItems");
-  mongoose.connect(process.env.moongoDBLink).then(d => {
-    console.log("connection opened");
-  });
-
-  return await AsosProducts.find({}).then(d => {
+  return openConnectionToDB().then(() => AsosProducts.find({}).then(d => {
     mongoose.disconnect().then(d => {
       console.log("conection closed ");
     });
     return d.filter(item => item.users.includes(username));
-  });
+  })).catch(e => e);
 }
 
 async function getAsosItem(productId) {
-  console.log("getAllItems");
-  mongoose.connect(process.env.moongoDBLink).then(d => {
-    console.log("connection opened");
-  });
-
-  return await AsosProducts.find({ productId: productId }).then(d => {
+  return openConnectionToDB().then(() => AsosProducts.find({ productId: productId }).then(d => {
     mongoose.disconnect().then(d => {
       console.log("conection closed ");
     });
     return d;
-  });
+  })).catch(e => e);
 }
 
-async function deleteAsosItem(productId) {
-  console.log("getAllItems");
-  mongoose.connect(process.env.moongoDBLink).then(d => {
-    console.log("connection opened");
-  });
+// uncomment
+// async function deleteAsosItem(productId) {
+//   openConnectionToDB()
 
-  return await AsosProducts.find({ productId: productId }).then(d => {
-    mongoose.disconnect().then(d => {
-      console.log("conection closed ");
-    });
-    //we only need to delete username from the list attached to the item
-    // no need to delete from the db all together
-    return d;
-  });
-}
+//   return await AsosProducts.findOneAndDelete({ productId: productId }).then(d => {
+//     mongoose.disconnect().then(d => {
+//       console.log("conection closed ");
+//     });
+//     return d;
+//   }).catch(e => e)
+// }
 
 const asosDBManager = {
   checkAsosProductInDB: checkAsosProductInDB,
@@ -225,11 +196,11 @@ const asosDBManager = {
   updateAsosProductInDB: updateAsosProductInDB,
   getAllAsosItems: getAllAsosItems,
   getAsosItem: getAsosItem,
-  deleteAsosItem: deleteAsosItem
+  // uncomment
+  // deleteAsosItem: deleteAsosItem
 };
 
 async function scrapeAsosProductPage(url, username) {
-  console.log("url to debug", url);
   const extractProductId = /(?:\/prd\/)\d{3,50}(?=\?)/g;
   const extractProductIdNumber = /\d{3,50}/g;
 
@@ -267,7 +238,6 @@ async function scrapeAsosProductPage(url, username) {
     })
     .catch(e => console.log("price information not awailable", e));
 
-  // open headless browser to inspect the page
   let imageArray = [];
 
   const browser = await puppeteer.launch({ headless: true });
@@ -345,7 +315,6 @@ app.use(
   })
 );
 
-// middleware function to check for logged-in users
 const sessionChecker = (req, res, next) => {
   if (req.session.user) {
     res.redirect("/dashboard");
@@ -355,17 +324,14 @@ const sessionChecker = (req, res, next) => {
 };
 
 function checkSignIn(req, res, next) {
-  console.log("req.session.user", req.session.user);
   if (req.session.user) {
-    next(); //If session exists, proceed to page
+    next();
   } else {
     var err = new Error("Not logged in!");
-    console.log(req.session.user);
-    next(err); //Error, trying to access unauthorized page!
+    next(err);
   }
 }
 
-// route for Home-Page
 app.get("/", (req, res) => {
   res.redirect("/login");
 });
@@ -383,8 +349,6 @@ app
     var username = req.body.login,
       password = req.body.password;
     dbManager.signUpPerson(username, password).then(d => {
-      // res.redirect("/");
-      // create session here
       req.session.user = username;
       res.redirect("/login");
     });
@@ -403,7 +367,6 @@ app.post("/login", function (req, res) {
   dbManager
     .loginPerson(username, password)
     .then(d => {
-      console.log("ud", d);
       req.session.userName = username;
       req.session.user = true;
       req.session.user = username;
@@ -419,7 +382,6 @@ app.get("/dashboard", checkSignIn, function (req, res) {
     saleItems = await asosDBManager.getAllAsosItems(user);
     res.render("index", {
       saleItems: saleItems.reverse(),
-      deleteItem: deleteItem,
       productExists: req.query.productExists ? true : false,
       productLoading: req.query.productLoading ? true : false
     });
@@ -440,8 +402,6 @@ app.get("/dashboard/:itemId", function (req, res) {
       productExists: req.query.productExists ? true : false
     });
   }
-
-  console.log("req.session.userName", req.session);
   if (req.session.user) {
     getSingleItem(req.params.itemId);
   } else {
@@ -450,17 +410,14 @@ app.get("/dashboard/:itemId", function (req, res) {
 });
 
 function detectOnlineStore(url) {
-  // regex for store domains
   const asosRegex = /asos/g;
   const zalandoRegex = /zalando/g;
   const nastygalRegex = /nastygal(?=\.com)/g;
 
-  // check if link is from any supported website
   const isAsos = asosRegex.test(url);
   const isZalando = zalandoRegex.test(url);
   const isNastygal = nastygalRegex.test(url);
 
-  // throw error if cannot find any website
   if (!isAsos && !isZalando && !isNastygal) {
     return "not found";
   } else if (isAsos) {
@@ -471,7 +428,6 @@ function detectOnlineStore(url) {
 }
 
 async function checkAsosItemInDB(url, callback1, callback2) {
-  console.log("checkItem");
   const extractProductId = /(?:\/prd\/)\d{3,50}(?=\?)/g;
   const extractProductIdNumber = /\d{3,50}/g;
 
@@ -479,7 +435,6 @@ async function checkAsosItemInDB(url, callback1, callback2) {
   const productId = extractProductIdNumber.exec(productIdArray[0])[0];
 
   if (!Number.isInteger(parseInt(productId))) {
-    // catch an error
     throw new Error("product ID not detected");
     return null;
   }
@@ -490,7 +445,6 @@ async function checkAsosItemInDB(url, callback1, callback2) {
     if (data !== null && data !== undefined) {
       callback1(data);
     } else {
-      console.log("it does not exist");
       callback2();
       return null;
     }
@@ -498,9 +452,11 @@ async function checkAsosItemInDB(url, callback1, callback2) {
 }
 
 app.post("/addUrl", async function (req, res) {
-  // get url from request
   const url1 = url.parse(req.body.url);
   const storePrint = detectOnlineStore(url1.host);
+
+  // uncomment
+  // throw new Error("random error");
 
   if (storePrint === "asos") {
     const itemChecked = await checkAsosItemInDB(
@@ -512,8 +468,11 @@ app.post("/addUrl", async function (req, res) {
       () => {
         scrapeAsosProductPage(url1.href, req.body.name)
           .then(data => {
-            console.log("we got here");
-            asosDBManager.addAsosProductToDB(data, req.session.user, () => {
+            // uncomment
+            // throw Error();
+            asosDBManager.addAsosProductToDB(data, req.session.user, (data) => {
+              // uncomment
+              // console.log('why doesnt readirect happen', data)
               return res.redirect("/dashboard");
             });
           })
@@ -525,33 +484,47 @@ app.post("/addUrl", async function (req, res) {
   } else if (storePrint === "zalando") {
     res.end("Not supported");
   } else {
+    throw new Error("no store detected");
     res.end("Not supported");
-  }
-
-  // TODO: refactor this later
-
-  function makeRequest() {
-    // console.log("now we know req.session.user", req.session.user);
-    // res.redirect("/dashboard?productLoading=true");
-    // axios
-    //   .post("http://localhost:1555/addUrl", {
-    //     url: url1,
-    //     name: req.session.user ? req.session.user : "undefined user"
-    //   })
-    //   .then(function(response) {
-    //     // console.log("do we have it already?", response.data);
-    //     res.redirect("/dashboard?productLoading=false");
-    //   })
-    //   .catch(e => {
-    //     console.log("error ", e);
-    //   });
   }
 });
 
-function deleteItem(itemID) {
-  // asosDBManager.deleteAsosItem(itemID);
-  console.log("delete", itemID);
-}
+// uncomment
+// version 1
+// app.post("/dashboard/delete/:itemId", function (req, res) {
+//   console.log('we try to delete item', req.url)
+//   async function getSingleItem(item) {
+//     saleItems = await asosDBManager.deleteAsosItem(itemID);
+//     res.render("sale", {
+//       saleItems: saleItems,
+//       productExists: req.query.productExists ? true : false
+//     });
+//   }
+//   if (req.session.user) {
+//     console.log('req.params.itemId', req.params.itemId)
+//     getSingleItem(req.params.itemId);
+//   }
+// });
+
+//version 2
+
+// app.post("/dashboard/delete/:itemId", function (req, res) {
+//   console.log('we try to delete item', req.url)
+//   async function getSingleItem(itemID) {
+//     saleItems = await asosDBManager.deleteAsosItem(itemID);
+//     res.render("sale", {
+//       saleItems: saleItems,
+//       productExists: req.query.productExists ? true : false
+//     });
+//   }
+//   if (req.session.user) {
+//     console.log('req.params.itemId', req.params.itemId)
+//     getSingleItem(req.params.itemId);
+//   }
+// });
+
+
+
 
 app.get("*", function (req, res) {
   res.render("404");

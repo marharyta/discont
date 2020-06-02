@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "webpack --config webpack.client.js",
+    "repl": "node -e 'var client = require(\"./server.js\"); console.log(\"Use `client` in repl\")' -i",
     "start": "",
     "lint": " ",
     "lint:css": " "

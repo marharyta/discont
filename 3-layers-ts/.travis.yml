@@ -1,0 +1,11 @@
+language: node_js
+node_js: 
+    - "10"
+dist: trusty
+env: 
+    - NODE_ENV=dev
+cashe: 
+    directories:
+        - node_modules
+install:
+    - yarn install

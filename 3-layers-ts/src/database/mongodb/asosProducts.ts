@@ -38,7 +38,7 @@ export function addAsosProductToDB(productData, callback) {
       console.log("we need to add products");
       // put that data into DB
       const product = AsosProductsModel(productData);
-      product.save(function(err) {
+      product.save(function (err) {
         if (err) {
           console.log("err", err);
         }
@@ -65,7 +65,7 @@ export function updateAsosProductInDB(productData, username, callback) {
     console.log("rule the world", r.users);
     if (!r.users.includes(username)) {
       r.users.push(username);
-      r.save(function(err) {
+      r.save(function (err) {
         if (err) {
           console.log("err", err);
         }
@@ -114,16 +114,13 @@ export async function getAsosItem(productId) {
   });
 }
 
-export async function deleteAsosItem(productData, username, callback) {
+export async function deleteAsosItem(productData) {
   console.log("we get to delete");
   mongooseConnect();
 
   return await AsosProductsModel.remove({
     productId: productData.productId
   }).then(r => {
-    console.log("removed", r);
-    callback();
-
     mongoose
       .disconnect()
       .then(d => {

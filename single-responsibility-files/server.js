@@ -20,11 +20,47 @@ app.use(
   })
 );
 
+
 app.use('/', router);
 
-// Any error
-app.use(function (err, req, res, next) {
-  return res.status(500).render("error");
+// // Any error on app request
+// app.use(function (error, req, res, next) {
+//   if (error) {
+//     console.log('any error');
+//   }
+//   next(error);
+// });
+
+// app.use(function handleDatabaseError(error, req, res, next) {
+//   if (error instanceof MongoError) {
+//     return res.status(503).json({
+//       type: 'MongoError',
+//       message: error.message
+//     });
+//   }
+//   next(error);
+// });
+
+app.use(function handleDatabaseError(error, req, res, next) {
+  console.log("we caught an error")
+
+  if (error instanceof MongoError) {
+    console.log('MongoError is logged')
+    return res.status(503).json({
+      type: 'MongoError',
+      message: error.message
+    });
+  }
+  next(error);
 });
 
+app.use(function (err, req, res, next) {
+  if (err) {
+    err.statusCode = err.statusCode || 500;
+    err.status = err.status || 'error';
+    return res.status(err.statusCode).render("error", {
+      errorStatus: err.status
+    });
+  }
+});
 app.listen(port, "127.0.0.1");

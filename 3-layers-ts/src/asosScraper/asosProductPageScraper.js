@@ -11,15 +11,18 @@ function getProductId(url) {
     const productIdArray = extractProductId.exec(url);
     const productId = extractProductIdNumber.exec(productIdArray[0])[0];
 
-    if (!Number.isInteger(parseInt(productId))) {
+    if (Number.isInteger(parseInt(productId))) {
+        console.log('id is here', productId)
+        return productId;
+    } else {
         throw new Error("product ID not detected");
     }
-
-    return productId;
 }
 
 async function scrapeAsosProductPage(url, username) {
     const productId = getProductId(url);
+    console.log('id is here', url, productId)
+
     let price = null;
     let previousPrice = null;
     let currency = null;

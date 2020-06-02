@@ -17,7 +17,7 @@ const {
 router.use(checkSignIn);
 
 // on initial login
-router.get("/", (req, res) => {
+router.get("/", (req, res, next) => {
   if (req.session.user) {
     res.redirect("/asosItems");
   } else {
@@ -39,7 +39,7 @@ router
 
 router.post("/asosItemUrl", addUrl);
 
-router.get("*", function(req, res) {
+router.get("*", function (req, res) {
   res.render("404");
 });
 

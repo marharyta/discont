@@ -1,4 +1,4 @@
-export function getLogout(req, res) {
+export function getLogout(req, res, next) {
   res.render("login", {
     logoutStataus: false
   });

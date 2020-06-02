@@ -1,0 +1,32 @@
+<script>
+  if ("Notification" in window) {
+    if (Notification && Notification.permission === "default") {
+      Notification.requestPermission(function (permission) {
+        console.log("permission", permission);
+        if (!("permission" in Notification)) {
+          Notification.permission = permission;
+        } else if (permission === "granted") {
+          // If it's okay let's create a notification
+          //   notification.notify();
+          //   console.log("notification", notification);
+        }
+      });
+    } else if (Notification.permission === "granted") {
+      const evtSource = new EventSource("http://localhost:5000");
+
+      // evtSource.onmessage = function(e) {
+      //   console.log('event', e);
+      // }
+      evtSource.onopen = function (e) {
+        evtSource.onmessage = function (e) {
+          const notification = new Notification(`${e.data}`);
+        };
+      };
+
+      evtSource.onerror = function () {
+        console.log("EventSource failed.");
+        evtSource.close();
+      };
+    }
+  }
+</script>

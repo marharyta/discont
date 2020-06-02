@@ -1,15 +1,14 @@
 import { loginPerson } from "../database/mongodb/login";
 
-export const getLogin = (req, res) => {
+export const getLogin = (req, res, next) => {
   res.render("login", {
     logoutStataus: false
   });
 };
 
-export const postLogin = (req, res) => {
+export const postLogin = (req, res, next) => {
   const username = req.body.login;
   const password = req.body.password;
-  console.log("postLogin", username, password);
   loginPerson(username, password)
     .then(() => {
       console.log("req.session.user", username);
@@ -17,8 +16,8 @@ export const postLogin = (req, res) => {
       req.session.user = username;
       res.redirect("/asosItems");
     })
-    .catch(e => {
-      console.log(e);
-      res.end("Invalid credentials", e);
+    .catch(err => {
+      next(err);
+      res.end("Invalid credentials", err);
     });
 };

@@ -23,6 +23,8 @@ const AsosProducts = mongoose.model("asosproducts", productOnAsos);
 function checkAsosProductInDB(productData, callback) {
   mongoose.connect(process.env.moongoDBLink).then(d => {
     console.log("connection opened");
+  }).catch(e => {
+    console.log("we got an error here", e);
   });
 
   AsosProducts.findOne({ productId: productData.productId }).then(product => {
@@ -31,12 +33,16 @@ function checkAsosProductInDB(productData, callback) {
       mongoose.disconnect().then(d => {
         callback(product);
         console.log("conection closed ");
+      }).catch(e => {
+        console.log("we got an error here", e);
       });
     } else {
       console.log("product already exists");
       mongoose.disconnect().then(d => {
         callback(product);
         console.log("conection closed ");
+      }).catch(e => {
+        console.log("we got an error here", e);
       });
     }
   });
@@ -46,6 +52,8 @@ function addAsosProductToDB(productData, callback) {
   console.log("addProductToDB start");
   mongoose.connect(process.env.moongoDBLink).then(d => {
     console.log("connection opened");
+  }).catch(e => {
+    console.log("we got an error here", e);
   });
 
   AsosProducts.findOne({ productId: productData.productId }).then(r => {
@@ -54,13 +62,15 @@ function addAsosProductToDB(productData, callback) {
       console.log("we need to add products");
       // put that data into DB
       const product = AsosProducts(productData);
-      product.save(function(err) {
+      product.save(function (err) {
         if (err) {
           console.log("err", err);
         }
         console.log("product data saved");
         mongoose.disconnect().then(d => {
           console.log("conection closed ");
+        }).catch(e => {
+          console.log("we got an error here", e);
         });
         callback();
       });
@@ -68,6 +78,8 @@ function addAsosProductToDB(productData, callback) {
       console.log("product already exists");
       mongoose.disconnect().then(d => {
         console.log("conection closed ");
+      }).catch(e => {
+        console.log("we got an error here", e);
       });
       callback();
     }
@@ -77,13 +89,15 @@ function addAsosProductToDB(productData, callback) {
 function updateAsosProductInDB(productData, username, callback) {
   mongoose.connect(process.env.moongoDBLink).then(d => {
     console.log("connection opened");
+  }).catch(e => {
+    console.log("we got an error here", e);
   });
 
   AsosProducts.findOne({ productId: productData.productId }).then(r => {
     console.log("rule the world", r.users);
     if (!r.users.includes(username)) {
       r.users.push(username);
-      r.save(function(err) {
+      r.save(function (err) {
         if (err) {
           console.log("err", err);
         }
@@ -107,11 +121,15 @@ async function getAllAsosItems(username) {
   console.log("getAllItems");
   mongoose.connect(process.env.moongoDBLink).then(d => {
     console.log("connection opened");
+  }).catch(e => {
+    console.log("we got an error here", e);
   });
 
   return await AsosProducts.find({}).then(d => {
     mongoose.disconnect().then(d => {
       console.log("conection closed ");
+    }).catch(e => {
+      console.log("we got an error here", e);
     });
     return d.filter(item => item.users.includes(username));
   });
@@ -121,11 +139,15 @@ async function getAsosItem(productId) {
   console.log("getAllItems");
   mongoose.connect(process.env.moongoDBLink).then(d => {
     console.log("connection opened");
+  }).catch(e => {
+    console.log("we got an error here", e);
   });
 
   return await AsosProducts.find({ productId: productId }).then(d => {
     mongoose.disconnect().then(d => {
       console.log("conection closed ");
+    }).catch(e => {
+      console.log("we got an error here", e);
     });
     return d;
   });
@@ -135,21 +157,23 @@ async function deleteAsosItem(productData, username, callback) {
   console.log("we get to delete");
   mongoose.connect(process.env.moongoDBLink).then(d => {
     console.log("connection opened");
+  }).catch(e => {
+    console.log("we got an error here", e);
   });
 
   return await AsosProducts.remove({ productId: productData.productId }).then(r => {
-      console.log("removed", r);
-      callback();
-     
-      mongoose
-        .disconnect()
-        .then(d => {
-          console.log("conection closed ");
-        })
-        .catch(e => {
-          console.log("we got an error here", e);
-        });
-      }
+    console.log("removed", r);
+    callback();
+
+    mongoose
+      .disconnect()
+      .then(d => {
+        console.log("conection closed ");
+      })
+      .catch(e => {
+        console.log("we got an error here", e);
+      });
+  }
   );
 }
 
