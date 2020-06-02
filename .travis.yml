@@ -9,3 +9,5 @@ cache:
         - node_modules
 install:
     - yarn install
+test: 
+    - yarn test
