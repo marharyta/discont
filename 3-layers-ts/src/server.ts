@@ -12,14 +12,23 @@ import router from "./router";
 // if (cluster.isMaster) {
 //   console.log(`Master ${process.pid} is running`);
 
-// // Fork workers.
-//  for (let i = 0; i < numCPUs; i++) {
-// cluster.fork();
+//   // Fork workers.
+// for (let i = 0; i < numCPUs; i++) {
+//   cluster.fork();
 // }
 
-// cluster.on('exit', (worker, code, signal) => {
-//   console.log(`worker ${worker.process.pid} died`);
-// });
+// cluster.fork();
+// cluster.fork();
+// cluster.fork();
+// cluster.fork();
+// cluster.fork();
+// cluster.fork();
+// cluster.fork();
+// cluster.fork();
+
+//   cluster.on('exit', (worker, code, signal) => {
+//     console.log(`worker ${worker.process.pid} died`);
+//   });
 // } else {
 const app = express();
 const port = process.env.PORT || 8000;
@@ -53,5 +62,5 @@ app.use(function (err, req, res, next) {
 console.log("post", port);
 app.listen(port);
 
-// console.log(`Worker ${process.pid} started`);
+//   console.log(`Worker ${process.pid} started`);
 // }

@@ -1,0 +1,502 @@
+Statistical profiling result from isolate-0x10291f000-23669-v8.log, (740 ticks, 4 unaccounted, 0 excluded).
+
+ [Shared libraries]:
+   ticks  total  nonlib   name
+      6    0.8%          /usr/lib/system/libsystem_platform.dylib
+      4    0.5%          /usr/lib/system/libsystem_pthread.dylib
+      3    0.4%          /usr/lib/system/libsystem_malloc.dylib
+      3    0.4%          /usr/lib/system/libsystem_kernel.dylib
+      1    0.1%          /usr/lib/system/libmacho.dylib
+      1    0.1%          /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation
+
+ [JavaScript]:
+   ticks  total  nonlib   name
+      4    0.5%    0.6%  LazyCompile: *resolve path.js:973:10
+      4    0.5%    0.6%  LazyCompile: *normalizeString path.js:52:25
+      1    0.1%    0.1%  LazyCompile: *handleErrorFromBinding internal/fs/utils.js:225:32
+
+ [C++]:
+   ticks  total  nonlib   name
+    270   36.5%   37.4%  t node::fs::Read(v8::FunctionCallbackInfo<v8::Value> const&)
+    160   21.6%   22.2%  T __ZN2v88internal21Builtin_HandleApiCallEiPmPNS0_7IsolateE
+     85   11.5%   11.8%  T node::contextify::ContextifyContext::CompileFunction(v8::FunctionCallbackInfo<v8::Value> const&)
+     52    7.0%    7.2%  t node::fs::InternalModuleReadJSON(v8::FunctionCallbackInfo<v8::Value> const&)
+     33    4.5%    4.6%  T node::native_module::NativeModuleEnv::CompileFunction(v8::FunctionCallbackInfo<v8::Value> const&)
+     20    2.7%    2.8%  t node::fs::Open(v8::FunctionCallbackInfo<v8::Value> const&)
+     16    2.2%    2.2%  T _vm_copy
+     15    2.0%    2.1%  t node::fs::InternalModuleStat(v8::FunctionCallbackInfo<v8::Value> const&)
+      7    0.9%    1.0%  T node::fs::Close(v8::FunctionCallbackInfo<v8::Value> const&)
+      6    0.8%    0.8%  t void node::Buffer::(anonymous namespace)::StringSlice<(node::encoding)1>(v8::FunctionCallbackInfo<v8::Value> const&)
+      6    0.8%    0.8%  T __kernelrpc_thread_policy_set
+      4    0.5%    0.6%  T _task_policy_set
+      3    0.4%    0.4%  t __ZN2v88internal12StringHasher20HashSequentialStringIhEEjPKT_iy
+      2    0.3%    0.3%  t realizeClassMaybeSwiftMaybeRelock(objc_class*, mutex_tt<false>&, bool)
+      2    0.3%    0.3%  t _small_malloc_should_clear
+      2    0.3%    0.3%  T node::binding::GetInternalBinding(v8::FunctionCallbackInfo<v8::Value> const&)
+      2    0.3%    0.3%  T node::TTYWrap::New(v8::FunctionCallbackInfo<v8::Value> const&)
+      2    0.3%    0.3%  T ___bsdthread_create
+      1    0.1%    0.1%  t void node::fs::FillStatsArray<double, v8::Float64Array>(node::AliasedBufferBase<double, v8::Float64Array, std::__1::enable_if<std::is_scalar<double>::value, void>::type>*, uv_stat_t const*, unsigned long)
+      1    0.1%    0.1%  t void AutoreleasePoolPage::busted<void (*)(char const*, ...)>(void (*)(char const*, ...)) const
+      1    0.1%    0.1%  t node::Cwd(v8::FunctionCallbackInfo<v8::Value> const&)
+      1    0.1%    0.1%  t node::(anonymous namespace)::ProcessWrap::Spawn(v8::FunctionCallbackInfo<v8::Value> const&)
+      1    0.1%    0.1%  t _tiny_malloc_should_clear
+      1    0.1%    0.1%  t _tiny_free_list_remove_ptr
+      1    0.1%    0.1%  t _szone_realloc
+      1    0.1%    0.1%  t _moreglue
+      1    0.1%    0.1%  t _free_tiny
+      1    0.1%    0.1%  t _free_small
+      1    0.1%    0.1%  t ___vfprintf
+      1    0.1%    0.1%  t __ZNSt3__16vectorIyNS_9allocatorIyEEE21__push_back_slow_pathIRKyEEvOT_
+      1    0.1%    0.1%  t __ZNSt3__16vectorIiN2v88internal13ZoneAllocatorIiEEE21__push_back_slow_pathIiEEvOT_
+      1    0.1%    0.1%  T node::fs::Access(v8::FunctionCallbackInfo<v8::Value> const&)
+      1    0.1%    0.1%  T _realloc
+      1    0.1%    0.1%  T _mach_msg_server
+      1    0.1%    0.1%  T _cerror_nocancel
+      1    0.1%    0.1%  T __platform_strncmp
+      1    0.1%    0.1%  T __kernelrpc_mach_port_get_context
+      1    0.1%    0.1%  T ___ulock_wait
+      1    0.1%    0.1%  T ___sfp
+      1    0.1%    0.1%  T ___sflags
+
+ [Summary]:
+   ticks  total  nonlib   name
+      9    1.2%    1.2%  JavaScript
+    709   95.8%   98.2%  C++
+     22    3.0%    3.0%  GC
+     18    2.4%          Shared libraries
+      4    0.5%          Unaccounted
+
+ [C++ entry points]:
+   ticks    cpp   total   name
+    672   99.7%   90.8%  T __ZN2v88internal21Builtin_HandleApiCallEiPmPNS0_7IsolateE
+      1    0.1%    0.1%  t void node::fs::FillStatsArray<double, v8::Float64Array>(node::AliasedBufferBase<double, v8::Float64Array, std::__1::enable_if<std::is_scalar<double>::value, void>::type>*, uv_stat_t const*, unsigned long)
+      1    0.1%    0.1%  T _mach_msg_server
+
+ [Bottom up (heavy) profile]:
+  Note: percentage shows a share of a particular caller in the total
+  amount of its parent calls.
+  Callers occupying less than 1.0% are not shown.
+
+   ticks parent  name
+    270   36.5%  t node::fs::Read(v8::FunctionCallbackInfo<v8::Value> const&)
+    270  100.0%    T __ZN2v88internal21Builtin_HandleApiCallEiPmPNS0_7IsolateE
+    270  100.0%      LazyCompile: ~readSync fs.js:499:18
+    270  100.0%        LazyCompile: ~tryReadSync fs.js:344:21
+    270  100.0%          LazyCompile: ~readFileSync fs.js:356:22
+    264   97.8%            LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      4    1.5%            LazyCompile: ~Module._extensions..json internal/modules/cjs/loader.js:1183:39
+
+    160   21.6%  T __ZN2v88internal21Builtin_HandleApiCallEiPmPNS0_7IsolateE
+     74   46.3%    T __ZN2v88internal21Builtin_HandleApiCallEiPmPNS0_7IsolateE
+     14   18.9%      LazyCompile: ~readPackage internal/modules/cjs/loader.js:239:21
+     13   92.9%        LazyCompile: ~readPackageExports internal/modules/cjs/loader.js:296:28
+     13  100.0%          LazyCompile: ~applyExports internal/modules/cjs/loader.js:489:22
+     13  100.0%            LazyCompile: ~resolveExports internal/modules/cjs/loader.js:541:24
+      1    7.1%        LazyCompile: ~readPackageScope internal/modules/cjs/loader.js:273:26
+      1  100.0%          LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      1  100.0%            LazyCompile: ~Module.load internal/modules/cjs/loader.js:990:33
+      9   12.2%      T __ZN2v88internal21Builtin_HandleApiCallEiPmPNS0_7IsolateE
+      2   22.2%        Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/entities/lib/decode.js:22:27
+      2  100.0%          Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/entities/lib/decode.js:1:1
+      2  100.0%            LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1   11.1%        LazyCompile: ~populateMaps /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mime-types/index.js:154:23
+      1  100.0%          Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mime-types/index.js:1:1
+      1  100.0%            LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1   11.1%        LazyCompile: ~installAsyncStackHooks /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/puppeteer/lib/helper.js:104:32
+      1  100.0%          Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/puppeteer/index.js:1:1
+      1  100.0%            LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1   11.1%        LazyCompile: ~getStrictDecoder /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/dom-serializer/node_modules/entities/lib/decode.js:12:26
+      1  100.0%          Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/dom-serializer/node_modules/entities/lib/decode.js:1:1
+      1  100.0%            LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1   11.1%        LazyCompile: ~bindDefaultResolver internal/dns/utils.js:132:29
+      1  100.0%          Eval: ~<anonymous> dns.js:1:1
+      1  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:266:27
+      1   11.1%        LazyCompile: ~<anonymous> internal/util/inspect.js:129:44
+      1  100.0%          T __ZN2v88internal21Builtin_HandleApiCallEiPmPNS0_7IsolateE
+      1  100.0%            Eval: ~<anonymous> internal/util/inspect.js:1:1
+      1   11.1%        LazyCompile: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mongoose-legacy-pluralize/index.js:87:34
+      1  100.0%          T __ZN2v88internal21Builtin_HandleApiCallEiPmPNS0_7IsolateE
+      1  100.0%            LazyCompile: ~pluralize /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mongoose-legacy-pluralize/index.js:83:19
+      1   11.1%        Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/lodash/_baseIsNative.js:1:1
+      1  100.0%          LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1  100.0%            LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      4    5.4%      LazyCompile: ~Module._extensions..json internal/modules/cjs/loader.js:1183:39
+      4  100.0%        LazyCompile: ~Module.load internal/modules/cjs/loader.js:990:33
+      4  100.0%          LazyCompile: ~Module._load internal/modules/cjs/loader.js:845:24
+      4  100.0%            LazyCompile: ~Module.require internal/modules/cjs/loader.js:1036:36
+      3    4.1%      LazyCompile: ~Module._load internal/modules/cjs/loader.js:845:24
+      2   66.7%        LazyCompile: ~Module.require internal/modules/cjs/loader.js:1036:36
+      2  100.0%          LazyCompile: ~require internal/modules/cjs/helpers.js:76:31
+      1   50.0%            Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mongoose/lib/document.js:1:1
+      1   50.0%            Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/bson/lib/bson/bson.js:1:1
+      1   33.3%        LazyCompile: ~executeUserEntryPoint internal/modules/run_main.js:67:31
+      1  100.0%          Eval: ~<anonymous> internal/main/run_main_module.js:1:1
+      2    2.7%      LazyCompile: ~maybeCacheSourceMap internal/source_map/source_map_cache.js:42:29
+      2  100.0%        LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      2  100.0%          LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      2  100.0%            LazyCompile: ~Module.load internal/modules/cjs/loader.js:990:33
+      2    2.7%      LazyCompile: ~find_package_json_with_name /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/require_optional/index.js:27:43
+      2  100.0%        LazyCompile: ~require_optional /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/require_optional/index.js:65:32
+      1   50.0%          LazyCompile: ~retrieveSnappy /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mongodb/lib/core/connection/utils.js:37:24
+      1  100.0%            Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mongodb/lib/core/wireprotocol/compression.js:1:1
+      1   50.0%          LazyCompile: ~retrieveBSON /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mongodb/lib/core/connection/utils.js:14:22
+      1  100.0%            Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mongodb/lib/core/sdam/server.js:1:1
+      1    1.4%      LazyCompile: ~wrapfunction /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/depd/index.js:397:23
+      1  100.0%        Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/express/lib/response.js:1:1
+      1  100.0%          LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1  100.0%            LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      1    1.4%      LazyCompile: ~toRealPath internal/modules/cjs/loader.js:355:20
+      1  100.0%        LazyCompile: ~Module._findPath internal/modules/cjs/loader.js:640:28
+      1  100.0%          LazyCompile: ~resolveMainPath internal/modules/run_main.js:8:25
+      1  100.0%            LazyCompile: ~executeUserEntryPoint internal/modules/run_main.js:67:31
+      1    1.4%      LazyCompile: ~toIdentifier /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/toidentifier/index.js:22:23
+      1  100.0%        LazyCompile: ~forEachCode /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/http-errors/index.js:243:38
+      1  100.0%          T __ZN2v88internal21Builtin_HandleApiCallEiPmPNS0_7IsolateE
+      1  100.0%            LazyCompile: ~populateConstructorExports /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/http-errors/index.js:242:37
+      1    1.4%      LazyCompile: ~setupListenHandle net.js:1262:27
+      1  100.0%        LazyCompile: ~listenInCluster net.js:1347:25
+      1  100.0%          LazyCompile: ~Server.listen net.js:1389:35
+      1  100.0%            LazyCompile: ~RoundRobinHandle internal/cluster/round_robin_handle.js:16:26
+      1    1.4%      LazyCompile: ~resolve path.js:973:10
+      1  100.0%        LazyCompile: ~resolveExports internal/modules/cjs/loader.js:541:24
+      1  100.0%          LazyCompile: ~Module._findPath internal/modules/cjs/loader.js:640:28
+      1  100.0%            LazyCompile: ~Module._resolveFilename internal/modules/cjs/loader.js:916:35
+      1    1.4%      LazyCompile: ~readFileSync fs.js:356:22
+      1  100.0%        LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      1  100.0%          LazyCompile: ~Module.load internal/modules/cjs/loader.js:990:33
+      1  100.0%            LazyCompile: ~Module._load internal/modules/cjs/loader.js:845:24
+      1    1.4%      LazyCompile: ~onmessage internal/cluster/master.js:245:19
+      1  100.0%        LazyCompile: ~onInternalMessage internal/cluster/utils.js:32:36
+      1  100.0%          LazyCompile: ~emit events.js:261:44
+      1  100.0%            LazyCompile: ~emit internal/child_process.js:875:16
+      1    1.4%      LazyCompile: ~onInternalMessage internal/cluster/utils.js:32:36
+      1  100.0%        LazyCompile: ~emit events.js:261:44
+      1  100.0%          LazyCompile: ~emit internal/child_process.js:875:16
+      1  100.0%            LazyCompile: ~processTicksAndRejections internal/process/task_queues.js:69:35
+      1    1.4%      LazyCompile: ~module.exports /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/iconv-lite/lib/extend-node.js:7:27
+      1  100.0%        Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/iconv-lite/lib/index.js:1:1
+      1  100.0%          LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1  100.0%            LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      1    1.4%      LazyCompile: ~getSupportLevel /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/supports-color/index.js:129:25
+      1  100.0%        Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/supports-color/index.js:1:1
+      1  100.0%          LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1  100.0%            LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      1    1.4%      LazyCompile: ~getInverseObj /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/dom-serializer/node_modules/entities/lib/encode.js:14:23
+      1  100.0%        Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/dom-serializer/node_modules/entities/lib/encode.js:1:1
+      1  100.0%          LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1  100.0%            LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      1    1.4%      LazyCompile: ~forEach /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/axios/lib/utils.js:203:17
+      1  100.0%        Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/axios/lib/defaults.js:1:1
+      1  100.0%          LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1  100.0%            LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      1    1.4%      LazyCompile: ~depd /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/depd/index.js:105:15
+      1  100.0%        Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/body-parser/index.js:1:1
+      1  100.0%          LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1  100.0%            LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      1    1.4%      LazyCompile: ~createWritableStdioStream internal/bootstrap/switches/is_main_thread.js:37:35
+      1  100.0%        LazyCompile: ~getStderr internal/bootstrap/switches/is_main_thread.js:127:19
+      1  100.0%          Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/debug/src/node.js:1:1
+      1  100.0%            LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1    1.4%      LazyCompile: ~containsNamespace /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/depd/index.js:31:28
+      1  100.0%        LazyCompile: ~istraced /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/depd/index.js:152:19
+      1  100.0%          LazyCompile: ~depd /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/depd/index.js:105:15
+      1  100.0%            Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/send/node_modules/http-errors/index.js:1:1
+      1    1.4%      LazyCompile: ~compile /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mongoose/lib/model.js:4623:33
+      1  100.0%        LazyCompile: ~Mongoose.model /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mongoose/lib/index.js:457:36
+      1  100.0%          Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/lib/models/user.js:1:1
+      1  100.0%            LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1    1.4%      LazyCompile: ~cluster.fork internal/cluster/master.js:166:24
+      1  100.0%        Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/lib/server.js:1:1
+      1  100.0%          LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1  100.0%            LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      1    1.4%      LazyCompile: ~T /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mquery/node_modules/bluebird/js/release/util.js:30:15
+      1  100.0%        LazyCompile: ~inherits /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mquery/node_modules/bluebird/js/release/util.js:27:24
+      1  100.0%          LazyCompile: ~module.exports /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mquery/node_modules/bluebird/js/release/map.js:2:26
+      1  100.0%            LazyCompile: ~module.exports /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mquery/node_modules/bluebird/js/release/promise.js:2:26
+      1    1.4%      LazyCompile: ~SchemaType /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mongoose/lib/schematype.js:37:20
+      1  100.0%        LazyCompile: ~SchemaNumber /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mongoose/lib/schema/number.js:28:22
+      1  100.0%          LazyCompile: ~Schema.interpretAsType /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mongoose/lib/schema.js:866:44
+      1  100.0%            LazyCompile: ~Schema.path /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mongoose/lib/schema.js:616:33
+      1    1.4%      LazyCompile: ~Schema.path /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mongoose/lib/schema.js:616:33
+      1  100.0%        LazyCompile: ~add /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mongoose/lib/schema.js:447:36
+      1  100.0%          LazyCompile: ~Schema /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mongoose/lib/schema.js:93:16
+      1  100.0%            Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/lib/models/productOnAsos.js:1:1
+      1    1.4%      LazyCompile: ~Pager /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/memory-pager/index.js:3:16
+      1  100.0%        LazyCompile: ~Pager /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/memory-pager/index.js:3:16
+      1  100.0%          LazyCompile: ~Bitfield /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/sparse-bitfield/index.js:5:19
+      1  100.0%            LazyCompile: ~Bitfield /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/sparse-bitfield/index.js:5:19
+      1    1.4%      LazyCompile: ~Module.require internal/modules/cjs/loader.js:1036:36
+      1  100.0%        LazyCompile: ~require internal/modules/cjs/helpers.js:76:31
+      1  100.0%          Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/lodash/_MapCache.js:1:1
+      1  100.0%            LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1    1.4%      LazyCompile: ~Module._resolveLookupPaths internal/modules/cjs/loader.js:799:38
+      1  100.0%        LazyCompile: ~Module._resolveFilename internal/modules/cjs/loader.js:916:35
+      1  100.0%          LazyCompile: ~Module._load internal/modules/cjs/loader.js:845:24
+      1  100.0%            LazyCompile: ~Module.require internal/modules/cjs/loader.js:1036:36
+      1    1.4%      LazyCompile: ~Module._findPath internal/modules/cjs/loader.js:640:28
+      1  100.0%        LazyCompile: ~Module._resolveFilename internal/modules/cjs/loader.js:916:35
+      1  100.0%          LazyCompile: ~Module._load internal/modules/cjs/loader.js:845:24
+      1  100.0%            LazyCompile: ~Module.require internal/modules/cjs/loader.js:1036:36
+      1    1.4%      LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1  100.0%        LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      1  100.0%          LazyCompile: ~Module.load internal/modules/cjs/loader.js:990:33
+      1  100.0%            LazyCompile: ~Module._load internal/modules/cjs/loader.js:845:24
+      1    1.4%      LazyCompile: ~Console.<computed> internal/console/constructor.js:219:46
+      1  100.0%        LazyCompile: ~log internal/console/constructor.js:290:6
+      1  100.0%          t node::inspector::(anonymous namespace)::InspectorConsoleCall(v8::FunctionCallbackInfo<v8::Value> const&)
+      1  100.0%            Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/lib/server.js:1:1
+      1    1.4%      LazyCompile: ~ChildProcess.spawn internal/child_process.js:333:40
+      1  100.0%        LazyCompile: ~spawn child_process.js:541:15
+      1  100.0%          LazyCompile: ~fork child_process.js:62:14
+      1  100.0%            LazyCompile: ~createWorkerProcess internal/cluster/master.js:105:29
+      1    1.4%      LazyCompile: ~<anonymous> zlib.js:775:62
+      1  100.0%        T __ZN2v88internal21Builtin_HandleApiCallEiPmPNS0_7IsolateE
+      1  100.0%          Eval: ~<anonymous> zlib.js:1:1
+      1  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:266:27
+      1    1.4%      LazyCompile: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mongoose/lib/browserDocument.js:89:56
+      1  100.0%        T __ZN2v88internal21Builtin_HandleApiCallEiPmPNS0_7IsolateE
+      1  100.0%          Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mongoose/lib/browserDocument.js:1:1
+      1  100.0%            LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1    1.4%      Eval: ~<anonymous> internal/errors.js:1:1
+      1  100.0%        LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:266:27
+      1  100.0%          LazyCompile: ~nativeModuleRequire internal/bootstrap/loaders.js:299:29
+      1  100.0%            LazyCompile: ~setupPrepareStackTrace internal/bootstrap/node.js:251:32
+      1    1.4%      Eval: ~<anonymous> internal/bootstrap/node.js:1:1
+      1    1.4%      Eval: ~<anonymous> _http_incoming.js:1:1
+      1  100.0%        LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:266:27
+      1  100.0%          LazyCompile: ~nativeModuleRequire internal/bootstrap/loaders.js:299:29
+      1  100.0%            Eval: ~<anonymous> _http_common.js:1:1
+      1    1.4%      Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/ws/lib/event-target.js:1:1
+      1  100.0%        LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1  100.0%          LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      1  100.0%            LazyCompile: ~Module.load internal/modules/cjs/loader.js:990:33
+      1    1.4%      Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/send/node_modules/mime/mime.js:1:1
+      1  100.0%        LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1  100.0%          LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      1  100.0%            LazyCompile: ~Module.load internal/modules/cjs/loader.js:990:33
+      1    1.4%      Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/parse5/lib/common/html.js:1:1
+      1  100.0%        LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1  100.0%          LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      1  100.0%            LazyCompile: ~Module.load internal/modules/cjs/loader.js:990:33
+      1    1.4%      Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mquery/node_modules/bluebird/js/release/util.js:1:1
+      1  100.0%        LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1  100.0%          LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      1  100.0%            LazyCompile: ~Module.load internal/modules/cjs/loader.js:990:33
+      1    1.4%      Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/ipaddr.js/lib/ipaddr.js:56:26
+      1  100.0%        Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/ipaddr.js/lib/ipaddr.js:1:10
+      1  100.0%          Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/ipaddr.js/lib/ipaddr.js:1:1
+      1  100.0%            LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1    1.4%      Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/express/lib/express.js:1:1
+      1  100.0%        LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1  100.0%          LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      1  100.0%            LazyCompile: ~Module.load internal/modules/cjs/loader.js:990:33
+      1    1.4%      Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/bl/bl.js:367:15
+      1  100.0%        Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/bl/bl.js:344:12
+      1  100.0%          Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/bl/bl.js:1:1
+      1  100.0%            LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1    1.4%      Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/lib/server.js:1:1
+      1  100.0%        LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1  100.0%          LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      1  100.0%            LazyCompile: ~Module.load internal/modules/cjs/loader.js:990:33
+      6    3.8%    LazyCompile: ~tryReadSync fs.js:344:21
+      6  100.0%      LazyCompile: ~readFileSync fs.js:356:22
+      5   83.3%        LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      5  100.0%          LazyCompile: ~Module.load internal/modules/cjs/loader.js:990:33
+      5  100.0%            LazyCompile: ~Module._load internal/modules/cjs/loader.js:845:24
+      1   16.7%        LazyCompile: ~Module._extensions..json internal/modules/cjs/loader.js:1183:39
+      1  100.0%          LazyCompile: ~Module.load internal/modules/cjs/loader.js:990:33
+      1  100.0%            LazyCompile: ~Module._load internal/modules/cjs/loader.js:845:24
+      4    2.5%    LazyCompile: ~toString buffer.js:761:46
+      4  100.0%      LazyCompile: ~readFileSync fs.js:356:22
+      4  100.0%        LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      4  100.0%          LazyCompile: ~Module.load internal/modules/cjs/loader.js:990:33
+      4  100.0%            LazyCompile: ~Module._load internal/modules/cjs/loader.js:845:24
+      4    2.5%    LazyCompile: ~readFileSync fs.js:356:22
+      4  100.0%      LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      3   75.0%        LazyCompile: ~Module.load internal/modules/cjs/loader.js:990:33
+      3  100.0%          LazyCompile: ~Module._load internal/modules/cjs/loader.js:845:24
+      3  100.0%            LazyCompile: ~Module.require internal/modules/cjs/loader.js:1036:36
+      1   25.0%        LazyCompile: *Module._load internal/modules/cjs/loader.js:845:24
+      1  100.0%          LazyCompile: ~Module.require internal/modules/cjs/loader.js:1036:36
+      1  100.0%            LazyCompile: ~require internal/modules/cjs/helpers.js:76:31
+      4    2.5%    LazyCompile: ~Module._resolveLookupPaths internal/modules/cjs/loader.js:799:38
+      4  100.0%      LazyCompile: ~Module._resolveFilename internal/modules/cjs/loader.js:916:35
+      4  100.0%        LazyCompile: ~Module._load internal/modules/cjs/loader.js:845:24
+      4  100.0%          LazyCompile: ~Module.require internal/modules/cjs/loader.js:1036:36
+      4  100.0%            LazyCompile: ~require internal/modules/cjs/helpers.js:76:31
+      3    1.9%    LazyCompile: ~Module._findPath internal/modules/cjs/loader.js:640:28
+      3  100.0%      LazyCompile: ~Module._resolveFilename internal/modules/cjs/loader.js:916:35
+      3  100.0%        LazyCompile: ~Module._load internal/modules/cjs/loader.js:845:24
+      3  100.0%          LazyCompile: ~Module.require internal/modules/cjs/loader.js:1036:36
+      3  100.0%            LazyCompile: ~require internal/modules/cjs/helpers.js:76:31
+      2    1.3%    LazyCompile: ~toRealPath internal/modules/cjs/loader.js:355:20
+      2  100.0%      LazyCompile: ~tryFile internal/modules/cjs/loader.js:347:17
+      2  100.0%        LazyCompile: ~tryExtensions internal/modules/cjs/loader.js:362:23
+      2  100.0%          LazyCompile: ~Module._findPath internal/modules/cjs/loader.js:640:28
+      2  100.0%            LazyCompile: ~Module._resolveFilename internal/modules/cjs/loader.js:916:35
+      2    1.3%    LazyCompile: ~realpathSync fs.js:1465:22
+      2  100.0%      LazyCompile: ~toRealPath internal/modules/cjs/loader.js:355:20
+      2  100.0%        LazyCompile: ~tryFile internal/modules/cjs/loader.js:347:17
+      2  100.0%          LazyCompile: ~tryExtensions internal/modules/cjs/loader.js:362:23
+      1   50.0%            LazyCompile: ~tryPackage internal/modules/cjs/loader.js:301:20
+      1   50.0%            LazyCompile: ~Module._findPath internal/modules/cjs/loader.js:640:28
+      2    1.3%    LazyCompile: ~readSync fs.js:499:18
+      2  100.0%      LazyCompile: ~tryReadSync fs.js:344:21
+      2  100.0%        LazyCompile: ~readFileSync fs.js:356:22
+      2  100.0%          LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      2  100.0%            LazyCompile: ~Module.load internal/modules/cjs/loader.js:990:33
+      2    1.3%    LazyCompile: ~readPackageScope internal/modules/cjs/loader.js:273:26
+      2  100.0%      LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      2  100.0%        LazyCompile: ~Module.load internal/modules/cjs/loader.js:990:33
+      2  100.0%          LazyCompile: ~Module._load internal/modules/cjs/loader.js:845:24
+      2  100.0%            LazyCompile: ~Module.require internal/modules/cjs/loader.js:1036:36
+      2    1.3%    LazyCompile: ~readPackage internal/modules/cjs/loader.js:239:21
+      1   50.0%      LazyCompile: ~readPackageScope internal/modules/cjs/loader.js:273:26
+      1  100.0%        LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      1  100.0%          LazyCompile: ~Module.load internal/modules/cjs/loader.js:990:33
+      1  100.0%            LazyCompile: ~Module._load internal/modules/cjs/loader.js:845:24
+      1   50.0%      LazyCompile: ~readPackageExports internal/modules/cjs/loader.js:296:28
+      1  100.0%        LazyCompile: ~applyExports internal/modules/cjs/loader.js:489:22
+      1  100.0%          LazyCompile: ~resolveExports internal/modules/cjs/loader.js:541:24
+      1  100.0%            LazyCompile: ~Module._findPath internal/modules/cjs/loader.js:640:28
+      2    1.3%    LazyCompile: ~hidden internal/errors.js:277:25
+      1   50.0%      LazyCompile: ~existsSync fs.js:232:20
+      1  100.0%        LazyCompile: ~find_package_json /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/require_optional/index.js:10:33
+      1  100.0%          LazyCompile: ~find_package_json_with_name /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/require_optional/index.js:27:43
+      1  100.0%            LazyCompile: ~require_optional /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/require_optional/index.js:65:32
+      1   50.0%      LazyCompile: ~closeSync fs.js:414:19
+      1  100.0%        LazyCompile: ~readFileSync fs.js:356:22
+      1  100.0%          LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      1  100.0%            LazyCompile: ~Module.load internal/modules/cjs/loader.js:990:33
+      2    1.3%    LazyCompile: ~Module.load internal/modules/cjs/loader.js:990:33
+      2  100.0%      LazyCompile: ~Module._load internal/modules/cjs/loader.js:845:24
+      2  100.0%        LazyCompile: ~Module.require internal/modules/cjs/loader.js:1036:36
+      2  100.0%          LazyCompile: ~require internal/modules/cjs/helpers.js:76:31
+      1   50.0%            LazyCompile: ~module.exports /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mquery/node_modules/bluebird/js/release/finally.js:2:26
+      1   50.0%            Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mongodb/lib/gridfs-stream/index.js:1:1
+      2    1.3%    LazyCompile: *realpathSync fs.js:1465:22
+      2  100.0%      LazyCompile: ~toRealPath internal/modules/cjs/loader.js:355:20
+      2  100.0%        LazyCompile: ~tryFile internal/modules/cjs/loader.js:347:17
+      2  100.0%          LazyCompile: ~tryExtensions internal/modules/cjs/loader.js:362:23
+      2  100.0%            LazyCompile: ~Module._findPath internal/modules/cjs/loader.js:640:28
+
+     85   11.5%  T node::contextify::ContextifyContext::CompileFunction(v8::FunctionCallbackInfo<v8::Value> const&)
+     85  100.0%    T __ZN2v88internal21Builtin_HandleApiCallEiPmPNS0_7IsolateE
+     85  100.0%      LazyCompile: ~wrapSafe internal/modules/cjs/loader.js:1056:18
+     85  100.0%        LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+     85  100.0%          LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+     79   92.9%            LazyCompile: ~Module.load internal/modules/cjs/loader.js:990:33
+      6    7.1%            LazyCompile: *Module._load internal/modules/cjs/loader.js:845:24
+
+     52    7.0%  t node::fs::InternalModuleReadJSON(v8::FunctionCallbackInfo<v8::Value> const&)
+     52  100.0%    T __ZN2v88internal21Builtin_HandleApiCallEiPmPNS0_7IsolateE
+     52  100.0%      LazyCompile: ~readPackage internal/modules/cjs/loader.js:239:21
+     52  100.0%        LazyCompile: ~readPackageExports internal/modules/cjs/loader.js:296:28
+     52  100.0%          LazyCompile: ~applyExports internal/modules/cjs/loader.js:489:22
+     52  100.0%            LazyCompile: ~resolveExports internal/modules/cjs/loader.js:541:24
+
+     33    4.5%  T node::native_module::NativeModuleEnv::CompileFunction(v8::FunctionCallbackInfo<v8::Value> const&)
+     33  100.0%    T __ZN2v88internal21Builtin_HandleApiCallEiPmPNS0_7IsolateE
+     33  100.0%      LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:266:27
+     27   81.8%        LazyCompile: ~nativeModuleRequire internal/bootstrap/loaders.js:299:29
+      3   11.1%          Eval: ~<anonymous> internal/bootstrap/node.js:1:1
+      2    7.4%          Eval: ~<anonymous> stream.js:1:1
+      2  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:266:27
+      2    7.4%          Eval: ~<anonymous> events.js:1:1
+      2  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:266:27
+      2    7.4%          Eval: ~<anonymous> crypto.js:1:1
+      2  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:266:27
+      1    3.7%          LazyCompile: ~setupPrepareStackTrace internal/bootstrap/node.js:251:32
+      1  100.0%            Eval: ~<anonymous> internal/bootstrap/node.js:1:1
+      1    3.7%          LazyCompile: ~setupBuffer internal/bootstrap/node.js:329:21
+      1  100.0%            Eval: ~<anonymous> internal/bootstrap/node.js:1:1
+      1    3.7%          LazyCompile: ~lazyLoadStreams fs.js:1810:25
+      1  100.0%            LazyCompile: ~get ReadStream fs.js:1911:17
+      1    3.7%          LazyCompile: ~initializeCJSLoader internal/bootstrap/pre_execution.js:395:29
+      1  100.0%            LazyCompile: ~prepareMainThreadExecution internal/bootstrap/pre_execution.js:14:36
+      1    3.7%          Eval: ~<anonymous> tls.js:1:1
+      1  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:266:27
+      1    3.7%          Eval: ~<anonymous> timers.js:1:1
+      1  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:266:27
+      1    3.7%          Eval: ~<anonymous> net.js:1:1
+      1  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:266:27
+      1    3.7%          Eval: ~<anonymous> internal/url.js:1:1
+      1  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:266:27
+      1    3.7%          Eval: ~<anonymous> internal/source_map/source_map_cache.js:1:1
+      1  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:266:27
+      1    3.7%          Eval: ~<anonymous> internal/modules/cjs/helpers.js:1:1
+      1  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:266:27
+      1    3.7%          Eval: ~<anonymous> internal/main/run_main_module.js:1:1
+      1    3.7%          Eval: ~<anonymous> internal/crypto/keygen.js:1:1
+      1  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:266:27
+      1    3.7%          Eval: ~<anonymous> internal/console/global.js:1:1
+      1  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:266:27
+      1    3.7%          Eval: ~<anonymous> internal/cluster/master.js:1:1
+      1  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:266:27
+      1    3.7%          Eval: ~<anonymous> internal/child_process.js:1:1
+      1  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:266:27
+      1    3.7%          Eval: ~<anonymous> http.js:1:1
+      1  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:266:27
+      1    3.7%          Eval: ~<anonymous> fs.js:1:1
+      1  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:266:27
+      1    3.7%          Eval: ~<anonymous> buffer.js:1:1
+      1  100.0%            LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:266:27
+      6   18.2%        LazyCompile: ~compileForPublicLoader internal/bootstrap/loaders.js:213:25
+      6  100.0%          LazyCompile: ~loadNativeModule internal/modules/cjs/helpers.js:22:26
+      6  100.0%            LazyCompile: ~Module._load internal/modules/cjs/loader.js:845:24
+
+     20    2.7%  t node::fs::Open(v8::FunctionCallbackInfo<v8::Value> const&)
+     20  100.0%    T __ZN2v88internal21Builtin_HandleApiCallEiPmPNS0_7IsolateE
+     20  100.0%      LazyCompile: ~openSync fs.js:448:18
+     20  100.0%        LazyCompile: ~readFileSync fs.js:356:22
+     19   95.0%          LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+     18   94.7%            LazyCompile: ~Module.load internal/modules/cjs/loader.js:990:33
+      1    5.3%            LazyCompile: *Module._load internal/modules/cjs/loader.js:845:24
+      1    5.0%          LazyCompile: ~Module._extensions..json internal/modules/cjs/loader.js:1183:39
+      1  100.0%            LazyCompile: ~Module.load internal/modules/cjs/loader.js:990:33
+
+     16    2.2%  T _vm_copy
+      9   56.3%    T __ZN2v88internal21Builtin_HandleApiCallEiPmPNS0_7IsolateE
+      1   11.1%      LazyCompile: ~setupListenHandle net.js:1262:27
+      1  100.0%        LazyCompile: ~listenInCluster net.js:1347:25
+      1  100.0%          LazyCompile: ~Server.listen net.js:1389:35
+      1  100.0%            LazyCompile: ~RoundRobinHandle internal/cluster/round_robin_handle.js:16:26
+      1   11.1%      LazyCompile: ~require_optional /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/require_optional/index.js:65:32
+      1  100.0%        LazyCompile: ~retrieveEJSON /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mongodb/lib/core/utils.js:59:23
+      1  100.0%          Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/mongodb/lib/core/index.js:1:1
+      1  100.0%            LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1   11.1%      LazyCompile: ~initializeCJSLoader internal/bootstrap/pre_execution.js:395:29
+      1  100.0%        LazyCompile: ~prepareMainThreadExecution internal/bootstrap/pre_execution.js:14:36
+      1  100.0%          Eval: ~<anonymous> internal/main/run_main_module.js:1:1
+      1   11.1%      LazyCompile: ~from buffer.js:286:28
+      1  100.0%        Eval: ~<anonymous> _http_outgoing.js:1:1
+      1  100.0%          LazyCompile: ~compileForInternalLoader internal/bootstrap/loaders.js:266:27
+      1  100.0%            LazyCompile: ~nativeModuleRequire internal/bootstrap/loaders.js:299:29
+      1   11.1%      LazyCompile: ~createDebug /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/debug/src/debug.js:63:21
+      1  100.0%        Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/finalhandler/index.js:1:1
+      1  100.0%          LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1  100.0%            LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      1   11.1%      LazyCompile: ~channel.onread internal/child_process.js:556:28
+      1   11.1%      LazyCompile: ~ReadableState _stream_readable.js:86:23
+      1  100.0%        LazyCompile: ~Readable _stream_readable.js:166:18
+      1  100.0%          LazyCompile: ~Duplex _stream_duplex.js:51:16
+      1  100.0%            LazyCompile: ~Socket net.js:262:16
+      1   11.1%      LazyCompile: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/lodash/_shortOut.js:21:18
+      1  100.0%        LazyCompile: ~baseRest /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/lodash/_baseRest.js:13:18
+      1  100.0%          LazyCompile: ~createAssigner /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/lodash/_createAssigner.js:11:24
+      1  100.0%            Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/node_modules/lodash/assign.js:1:1
+      1   11.1%      Eval: ~<anonymous> /Users/margaritaobraztsova/Documents/fashion-forward/discont/3-layers-ts/lib/router.js:1:1
+      1  100.0%        LazyCompile: ~Module._compile internal/modules/cjs/loader.js:1112:37
+      1  100.0%          LazyCompile: ~Module._extensions..js internal/modules/cjs/loader.js:1167:37
+      1  100.0%            LazyCompile: ~Module.load internal/modules/cjs/loader.js:990:33
+
+     15    2.0%  t node::fs::InternalModuleStat(v8::FunctionCallbackInfo<v8::Value> const&)
+     15  100.0%    T __ZN2v88internal21Builtin_HandleApiCallEiPmPNS0_7IsolateE
+     15  100.0%      LazyCompile: ~stat internal/modules/cjs/loader.js:133:14
+     12   80.0%        LazyCompile: ~Module._findPath internal/modules/cjs/loader.js:640:28
+     12  100.0%          LazyCompile: ~Module._resolveFilename internal/modules/cjs/loader.js:916:35
+     12  100.0%            LazyCompile: ~Module._load internal/modules/cjs/loader.js:845:24
+      3   20.0%        LazyCompile: ~tryFile internal/modules/cjs/loader.js:347:17
+      3  100.0%          LazyCompile: ~tryExtensions internal/modules/cjs/loader.js:362:23
+      3  100.0%            LazyCompile: ~Module._findPath internal/modules/cjs/loader.js:640:28
+

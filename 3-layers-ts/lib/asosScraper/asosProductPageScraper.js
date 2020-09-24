@@ -31,6 +31,7 @@ async function scrapeAsosProductPage(url, username) {
   axios.get(`https://www.asos.com/api/product/catalogue/v2/stockprice?productIds=${productId}&currency=EUR&store=ROE`).then(response => {
     // console.log("JSON.parse(response)", response.data[0]);
     const itemInfo = response.data[0];
+    console.log("itemInfo", response);
     price = itemInfo.productPrice.current;
     previousPrice = itemInfo.productPrice.previous;
     currency = itemInfo.productPrice.currency;

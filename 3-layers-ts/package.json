@@ -9,7 +9,11 @@
     "dev-asos": "babel-node ./src/asosScraper/asosServer.ts --extensions '.ts,.js'",
     "build": "babel src --out-dir lib --copy-files --extensions '.ts,.js'",
     "lint": " ",
-    "dev-perf": "babel-node --prof ./src/server.ts --extensions '.ts,.js'"
+    "dev-perf": "babel-node --prof ./src/server.ts --extensions '.ts,.js'",
+    "start": "node lib/server.js"
+  },
+  "engines": {
+    "node": "12.16.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
