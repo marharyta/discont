@@ -38,7 +38,7 @@
     "@babel/plugin-transform-flow-strip-types": "^7.9.0",
     "@babel/preset-react": "^7.9.4",
     "@babel/runtime": "^7.9.2",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "babel-loader": "^8.0.5",
     "babel-node": "^0.0.1-security",
     "cheerio": "^1.0.0-rc.2",
