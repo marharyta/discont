@@ -11,7 +11,7 @@
     "lint:css": " "
   },
   "devDependencies": {
-    "express": "^4.16.4"
+    "express": "^4.17.3"
   },
   "dependencies": {
     "@babel/core": "^7.3.3",
